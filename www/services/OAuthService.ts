@@ -12,7 +12,7 @@ export class OAuthService {
 
         if (!window.localStorage.getItem('REDIRECT_PERFORMED')) {
             window.localStorage.setItem('REDIRECT_PERFORMED', 'HAS_A_VALUE');
-            OAuth.redirect('github', `http://localhost:8080/#/${partialPath}/${username}/${problemId}`);
+            OAuth.redirect('github', `http://localhost:8080/www/#/${partialPath}/${username}/${problemId}`);
             return;
         }
 
