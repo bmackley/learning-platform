@@ -1,19 +1,30 @@
-import {Injectable} from 'angular2/core';
+import {Injectable, Inject} from 'angular2/core';
 import {Problem} from '../interfaces/ProblemInterface.ts';
+import {OAuthService} from './OAuthService.ts';
 
 @Injectable()
 export class GitHubService {
 
-    constructor() {
+    private authorizedGitHub;
+    private unauthorizedGitHub;
 
+    constructor(@Inject(OAuthService) oAuthService: OAuthService) {
 
+        if (oAuthService.token) {
+            this.authorizedGitHub = new Github({
+               token: OAuthService.token,
+               auth: 'oauth'
+           });
+        }
 
+        this.unauthorizedGitHub = new Github({});
     }
 
     //TODO update this code to use repo.read instead of contents, repo.read seems like a simpler api
     getProblem(username: String, problemId: String) {
-        return new Promise(function(resolve, reject) {
-            const gitHub = new Github({});
+        return new Promise((resolve, reject) => {
+
+            const gitHub = this.authorizedGitHub || this.unauthorizedGitHub;
 
             const repo = gitHub.getRepo(username, problemId);
 
@@ -33,21 +44,18 @@ export class GitHubService {
     }
 
     //TODO refactor this, I'm creating repos and github objects a lot, not very functional perhaps either
-    async saveProblem(token: String, username: String, problemId: String, text: String, code: String) {
+    async saveProblem(username: String, problemId: String, text: String, code: String) {
 
-        if (!(await this.checkIfRepoExists(username, problemId))) {
+        const gitHub = this.authorizedGitHub || this.unauthorizedGitHub;
+
+        if (!(await this.checkIfRepoExists(username, problemId, gitHub))) {
             try {
-                await this.createRepo(token, problemId);
+                await this.createRepo(problemId, gitHub);
             }
             catch(error) {
                 throw new Error(error);
             }
         }
-
-        const gitHub = new Github({
-            token: token,
-            auth: 'oauth'
-        });
 
         const repo = gitHub.getRepo(username, problemId);
 
@@ -60,9 +68,8 @@ export class GitHubService {
         }
     }
 
-    private checkIfRepoExists(username: String, problemId: String) {
+    private checkIfRepoExists(username: String, problemId: String, gitHub) {
         return new Promise(function(resolve, reject) {
-            const gitHub = new Github({});
 
             const repo = gitHub.getRepo(username, problemId);
 
@@ -75,12 +82,8 @@ export class GitHubService {
         });
     }
 
-    private createRepo(token: String, problemId: String) {
+    private createRepo(problemId: String, gitHub) {
         return new Promise(function(resolve, reject) {
-            const gitHub = new Github({
-                token: token,
-                auth: 'oauth'
-            });
 
             const user = gitHub.getUser();
 

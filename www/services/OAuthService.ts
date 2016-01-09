@@ -4,11 +4,13 @@ import {Location} from 'angular2/router';
 @Injectable()
 export class OAuthService {
 
+    public token: String;
+
     constructor(location: Location) {
         OAuth.initialize('TSIO2Yu3hIlm1_DPW5BpnybvigE');
     }
 
-    authenticate(partialPath: String, username: String, problemId: String, callback: Function) {
+    authenticate(partialPath: String, username: String, problemId: String) {
 
         if (!window.localStorage.getItem('REDIRECT_PERFORMED')) {
             window.localStorage.setItem('REDIRECT_PERFORMED', 'HAS_A_VALUE');
@@ -17,12 +19,12 @@ export class OAuthService {
         }
 
         window.localStorage.removeItem('REDIRECT_PERFORMED');
-        this.executeCallback(callback);
+        this.executeCallback();
     }
 
-    private executeCallback(callback: Function) {
+    private executeCallback() {
         OAuth.callback('github').done(function(result) {
-            callback(result.access_token);
+            this.token = result.access_token;
 		})
 		.fail(function(err) {
 

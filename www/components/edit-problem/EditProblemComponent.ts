@@ -11,7 +11,6 @@ import {RouteParams} from 'angular2/router';
 
 export class EditProblemComponent {
 
-	private userAuthToken: String;
 	private username: String;
 	private problemId: String
 
@@ -20,15 +19,13 @@ export class EditProblemComponent {
 		this.username = routeParams.get('username');
 		this.problemId = routeParams.get('problem-id');
 
-        oAuthService.authenticate('edit-problem', this.username, this.problemId, (token: String) => {
-			this.userAuthToken = token;
-		});
+        oAuthService.authenticate('edit-problem', this.username, this.problemId);
 
 
 	}
 
 	saveProblem(text: String, code: String) {
-		this.gitHubService.saveProblem(this.userAuthToken, this.username, this.problemId, text, code);
+		this.gitHubService.saveProblem(this.username, this.problemId, text, code);
 	}
 
 }
