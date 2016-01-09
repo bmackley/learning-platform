@@ -5,7 +5,7 @@ import {GitHubService} from '../../services/GitHubService.ts';
 
 @Component({
 	selector: 'view-problem',
-	templateUrl: 'components/view-problem/view-problem.html',
+	templateUrl: 'www/components/view-problem/view-problem.html',
     providers: [GitHubService]
 })
 

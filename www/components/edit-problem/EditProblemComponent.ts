@@ -5,7 +5,7 @@ import {RouteParams} from 'angular2/router';
 
 @Component({
 	selector: 'edit-problem',
-	templateUrl: 'components/edit-problem/edit-problem.html',
+	templateUrl: 'www/components/edit-problem/edit-problem.html',
     providers: [OAuthService, GitHubService]
 })
 

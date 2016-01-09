@@ -5,7 +5,7 @@
   "scripts": {
     "webpack": "webpack --progress --profile --colors --display-error-details --display-cached",
     "http-server": "http-server",
-    "start": "npm run webpack && npm run http-server www"
+    "start": "npm run webpack && npm run http-server"
   },
   "repository": {
     "type": "git",
