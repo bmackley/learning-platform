@@ -1,15 +1,22 @@
 import {Component} from 'angular2/core';
-import {OAuthService} from '../../services/OAuthService.ts';
+import {RouteConfig, ROUTER_DIRECTIVES} from 'angular2/router';
+import {ViewProblemComponent} from '../view-problem/ViewProblemComponent.ts';
+import {EditProblemComponent} from '../edit-problem/EditProblemComponent.ts';
 
 @Component({
 	selector: 'app',
 	templateUrl: 'components/app/app.html',
-	providers: [OAuthService]
+	directives: [ROUTER_DIRECTIVES]
 })
+
+@RouteConfig([
+    { path: '/view-problem/:username/:problem-id', component: ViewProblemComponent },
+	{ path: '/edit-problem/:username/:problem-id', component: EditProblemComponent }
+])
 
 export class AppComponent {
 
-	constructor(oAuthService: OAuthService) {
+	constructor() {
 
 	}
 
