@@ -22,17 +22,13 @@ export class EditProblemComponent {
 
         oAuthService.authenticate('edit-problem', this.username, this.problemId, (token: String) => {
 			this.userAuthToken = token;
-
-			this.saveProblem();
 		});
 
 
 	}
 
-	saveProblem() {
-
-		this.gitHubService.saveProblem(this.userAuthToken, this.username, this.problemId, 'text', 'code');
-
+	saveProblem(text: String, code: String) {
+		this.gitHubService.saveProblem(this.userAuthToken, this.username, this.problemId, text, code);
 	}
 
 }
