@@ -6,24 +6,32 @@ import {RouteParams} from 'angular2/router';
 @Component({
 	selector: 'edit-problem',
 	templateUrl: 'components/edit-problem/edit-problem.html',
-    providers: [OAuthService]
+    providers: [OAuthService, GitHubService]
 })
 
 export class EditProblemComponent {
 
 	private userAuthToken: String;
+	private username: String;
+	private problemId: String
 
-	constructor(oAuthService: OAuthService, routeParams: RouteParams, gitHubService: GitHubService) {
-		/*http
-			.get('https://github.com/login/oauth/authorize?client_id=myClientId')
-			.map(res => res.json())
-			.subscribe()*/
-        oAuthService.authenticate('edit-problem', routeParams.get('username'), routeParams.get('problem-id'), function(token: String) {
+	constructor(oAuthService: OAuthService, routeParams: RouteParams, public gitHubService: GitHubService) {
 
-			
+		this.username = routeParams.get('username');
+		this.problemId = routeParams.get('problem-id');
 
+        oAuthService.authenticate('edit-problem', this.username, this.problemId, (token: String) => {
+			this.userAuthToken = token;
+
+			this.saveProblem();
 		});
 
+
+	}
+
+	saveProblem() {
+
+		this.gitHubService.saveProblem(this.userAuthToken, this.username, this.problemId, 'text', 'code');
 
 	}
 

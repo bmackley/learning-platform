@@ -11,14 +11,19 @@ import {GitHubService} from '../../services/GitHubService.ts';
 
 export class ViewProblemComponent {
 
+	public text: String;
+	public code: String;
+
 	constructor(routeParams: RouteParams, public gitHubService: GitHubService) {
 		this.getProblem(routeParams.get('username'), routeParams.get('problem-id'));
 	}
 
 	private async getProblem(username: String, problemId: String) {
+
 		const problem = await this.gitHubService.getProblem(username, problemId);
 
-		console.log(problem);
+		this.text = problem.text;
+		this.code = problem.code;
 	}
 
 }
