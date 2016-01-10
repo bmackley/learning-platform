@@ -5,26 +5,29 @@ import {OAuthService} from './OAuthService.ts';
 @Injectable()
 export class GitHubService {
 
-    private authorizedGitHub;
-    private unauthorizedGitHub;
+    private oAuthService;
 
     constructor(@Inject(OAuthService) oAuthService: OAuthService) {
+        this.oAuthService = oAuthService;
+    }
 
-        if (oAuthService.token) {
-            this.authorizedGitHub = new Github({
-               token: OAuthService.token,
+    private createGitHub(token: String) {
+
+        if (token) {
+            return new Github({
+               token: token,
                auth: 'oauth'
            });
         }
 
-        this.unauthorizedGitHub = new Github({});
+        return new Github({});
     }
 
     //TODO update this code to use repo.read instead of contents, repo.read seems like a simpler api
     getProblem(username: String, problemId: String) {
         return new Promise((resolve, reject) => {
 
-            const gitHub = this.authorizedGitHub || this.unauthorizedGitHub;
+            const gitHub = this.createGitHub(this.oAuthService.token);
 
             const repo = gitHub.getRepo(username, problemId);
 
@@ -46,7 +49,7 @@ export class GitHubService {
     //TODO refactor this, I'm creating repos and github objects a lot, not very functional perhaps either
     async saveProblem(username: String, problemId: String, text: String, code: String) {
 
-        const gitHub = this.authorizedGitHub || this.unauthorizedGitHub;
+        const gitHub = this.createGitHub(this.oAuthService.token);
 
         if (!(await this.checkIfRepoExists(username, problemId, gitHub))) {
             try {

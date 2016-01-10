@@ -22,9 +22,6 @@ export class ViewProblemComponent {
 
 		const problem = await this.gitHubService.getProblem(username, problemId);
 
-		console.log(problem.text);
-		console.log(problem.code);
-
 		this.text = problem.text;
 		this.code = problem.code;
 	}

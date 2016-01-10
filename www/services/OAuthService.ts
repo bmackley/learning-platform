@@ -23,7 +23,7 @@ export class OAuthService {
     }
 
     private executeCallback() {
-        OAuth.callback('github').done(function(result) {
+        OAuth.callback('github').done((result) => {
             this.token = result.access_token;
 		})
 		.fail(function(err) {
