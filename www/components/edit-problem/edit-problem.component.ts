@@ -1,6 +1,6 @@
 import {Component} from 'angular2/core';
-import {OAuthService} from '../../services/OAuthService.ts';
-import {GitHubService} from '../../services/GitHubService.ts';
+import {OAuthService} from '../../services/o-auth.service.ts';
+import {GitHubService} from '../../services/github.service.ts';
 import {RouteParams} from 'angular2/router';
 
 @Component({

@@ -1,7 +1,7 @@
 import {Component} from 'angular2/core';
-import {Problem} from '../../interfaces/ProblemInterface.ts';
+import {Problem} from '../../interfaces/problem.interface.ts';
 import {RouteParams} from 'angular2/router';
-import {GitHubService} from '../../services/GitHubService.ts';
+import {GitHubService} from '../../services/github.service.ts';
 
 @Component({
 	selector: 'view-problem',

@@ -1,7 +1,7 @@
 import {Component} from 'angular2/core';
 import {RouteConfig, ROUTER_DIRECTIVES} from 'angular2/router';
-import {ViewProblemComponent} from '../view-problem/ViewProblemComponent.ts';
-import {EditProblemComponent} from '../edit-problem/EditProblemComponent.ts';
+import {ViewProblemComponent} from '../view-problem/view-problem.component.ts';
+import {EditProblemComponent} from '../edit-problem/edit-problem.component.ts';
 
 @Component({
 	selector: 'app',

@@ -1,6 +1,6 @@
 import {Injectable, Inject} from 'angular2/core';
-import {Problem} from '../interfaces/ProblemInterface.ts';
-import {OAuthService} from './OAuthService.ts';
+import {Problem} from '../interfaces/problem.interface.ts';
+import {OAuthService} from './o-auth.service.ts';
 
 @Injectable()
 export class GitHubService {
