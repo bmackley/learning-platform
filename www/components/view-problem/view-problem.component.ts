@@ -67,6 +67,7 @@ export class ViewProblemComponent {
 	constructor(routeParams: RouteParams, problemService: ProblemService) {
         this.problemService = problemService;
 
+
 		this.getProblem(routeParams.get('username'), routeParams.get('problem-id'));
 	}
 
