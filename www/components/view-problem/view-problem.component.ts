@@ -6,7 +6,10 @@ import {RouteParams} from 'angular2/router';
 	selector: 'view-problem',
 	template: `
         <div class="sm-flex-row sm-flex-center sm-problem-container">
-            <div>{{text}}</div>
+            <div class="sm-flex-col">
+                <div>{{text}}</div>
+                <input type="text" placeholder="type answer" class="sm-answer-input">
+            </div>
         </div>
 
         <style>
@@ -16,6 +19,14 @@ import {RouteParams} from 'angular2/router';
                 height: 100vh;
                 margin-left: 5vw;
                 margin-right: 5vw;
+            }
+
+            .sm-answer-input {
+                padding: 10px;
+                outline: none;
+                font-size: 25px;
+                border: none;
+                border-bottom: 1px solid grey;
             }
         </style>
     `
