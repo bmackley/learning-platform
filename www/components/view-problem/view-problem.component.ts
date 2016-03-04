@@ -71,7 +71,6 @@ export class ViewProblemComponent {
 	}
 
 	private async getProblem(username: String, problemId: String) {
-
 		const problem = await this.problemService.getById(problemId, username);
 
 		this.text = problem.text;

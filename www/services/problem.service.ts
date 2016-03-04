@@ -1,7 +1,7 @@
 import {Injectable} from 'angular2/core';
 import {FirebaseService} from './firebase.service.ts';
 
-const problemsRef = new Firebase(`https://resplendent-fire-9351.firebaseio.com/problems`);
+const problemsPath = 'problems/';
 
 @Injectable()
 export class ProblemService {
@@ -12,21 +12,19 @@ export class ProblemService {
         this.firebaseService = firebaseService;
     }
 
-    save(key, data) {
-        if (key) {
-            this.firebaseService.set(problemsRef, data);
+    save(id, data) {
+        if (id) {
+            const path = problemsPath + id;
+            this.firebaseService.set(path, data);
         }
         else {
-            this.firebaseService.push(problemsRef, data);
+            const path = problemsPath;
+            this.firebaseService.push(path, data);
         }
     }
 
     async getById(id, username) {
-
-        const problemRef = new Firebase(`https://resplendent-fire-9351.firebaseio.com/problems/${id}`);
-
-        const problemSnapshot = await problemRef.once('value');
-
-        return problemSnapshot.val();
+        const path = problemsPath + id;
+        return await this.firebaseService.get(path);
     }
 }
