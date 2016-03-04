@@ -9,6 +9,7 @@ import {RouteParams} from 'angular2/router';
             <div class="sm-flex-col">
                 <div>{{text}}</div>
                 <input type="text" placeholder="type answer" class="sm-answer-input">
+                <button class="sm-check-answer-button">Check</button>
             </div>
         </div>
 
@@ -16,7 +17,7 @@ import {RouteParams} from 'angular2/router';
             @import 'www/components/app/app.css';
 
             .sm-problem-container {
-                height: 100vh;
+                margin-top: 10vh;
                 margin-left: 5vw;
                 margin-right: 5vw;
             }
@@ -27,6 +28,24 @@ import {RouteParams} from 'angular2/router';
                 font-size: 25px;
                 border: none;
                 border-bottom: 1px solid grey;
+            }
+
+            .sm-check-answer-button {
+                margin-top: 10px;
+                margin-left: auto;
+                border: none;
+                background-color: white;
+                box-shadow: 0px 0px 1px grey;
+                font-size: 25px;
+                padding: 10px;
+                color: grey;
+                outline: none;
+                cursor: pointer;
+                transition: background-color .2s ease-in-out;
+            }
+
+            .sm-check-answer-button:active {
+                background-color: rgba(0, 0, 0, .1);
             }
         </style>
     `
