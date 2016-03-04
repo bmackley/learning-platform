@@ -1,0 +1,18 @@
+.sm-flex-row {
+    display: flex;
+    flex-direction: row;
+}
+
+.sm-flex-wrap {
+    flex-wrap: wrap;
+}
+
+.sm-flex-col {
+    display: flex;
+    flex-direction: column;
+}
+
+.sm-flex-center {
+    justify-content: center;
+    align-items: center;
+}

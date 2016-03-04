@@ -18,8 +18,7 @@ export class EditProblemComponent {
 		this.problemService = problemService;
 
 		this.username = routeParams.get('username');
-		//this.problemId = routeParams.get('problem-id');
-		this.problemId = undefined;
+		this.problemId = routeParams.get('problem-id');
 
 	}
 
