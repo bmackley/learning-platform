@@ -67,13 +67,14 @@ export class ViewProblemComponent {
 	constructor(routeParams: RouteParams, problemService: ProblemService) {
         this.problemService = problemService;
 
-
 		this.getProblem(routeParams.get('username'), routeParams.get('problem-id'));
 	}
 
 	private async getProblem(username: String, problemId: String) {
-		const problem = await this.problemService.getById(problemId, username);
-
+        console.log(username);
+        console.log(problemId);
+        const problem = await this.problemService.getById(problemId, username);
+        console.log(problem);
 		this.text = problem.text;
 		this.code = problem.code;
 	}

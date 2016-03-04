@@ -24,7 +24,11 @@ export class ProblemService {
     }
 
     async getById(id, username) {
+        console.log('getById');
+        console.log(id);
+        console.log(username);
         const path = problemsPath + id;
+        console.log(path)
         return await this.firebaseService.get(path);
     }
 }
