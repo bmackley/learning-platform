@@ -6,25 +6,11 @@ export class FirebaseService {
     constructor() {
     }
 
-    getDBRef(path) {
-        return new Firebase(`https://resplendent-fire-9351.firebaseio.com/${path}`);
+    set(ref, data) {
+        ref.set(data);
     }
 
-    setToDB(path, data) {
-        console.log(path);
-        console.log(data);
-
-        const dbRef = this.getDBRef(path);
-
-        dbRef.set(data);
-    }
-
-    pushToDB(path, data) {
-        console.log(path);
-        console.log(data);
-
-        const dbRef = this.getDBRef(path);
-
-        dbRef.push(data);
+    push(ref, data) {
+        ref.push(data);
     }
 }
