@@ -21,7 +21,7 @@ export class FirebaseService {
         console.log(new Firebase(`https://resplendent-fire-9351.firebaseio.com/${path}`));
         console.log(path);
         let shasta = new Firebase(`https://resplendent-fire-9351.firebaseio.com/${path}`);
-        console.log(ref);
+        console.log(shasta);
         const dataSnapshot = await shasta.once('value');
         console.log(dataSnapshot);
         return dataSnapshot.val();
