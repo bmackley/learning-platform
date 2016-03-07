@@ -31,8 +31,8 @@ export class ProblemService {
         console.log(path);
         console.log('*************************');
         console.log(this.firebaseService);
-        console.log(this.firebaseService.get);
-        const problem = await this.firebaseService.get(path);
+        console.log(this.firebaseService.retrieve);
+        const problem = await this.firebaseService.retrieve(path);
         return problem;
     }
 }

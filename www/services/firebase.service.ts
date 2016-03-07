@@ -16,7 +16,7 @@ export class FirebaseService {
         ref.push(data);
     }
 
-    async get(path) {
+    async retrieve(path) {
         console.log('async get');
         console.log(new Firebase(`https://resplendent-fire-9351.firebaseio.com/${path}`));
         console.log(path);
