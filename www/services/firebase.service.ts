@@ -7,12 +7,16 @@ export class FirebaseService {
     }
 
     set(path, data) {
+        console.log(path);
         const ref = new Firebase(`https://resplendent-fire-9351.firebaseio.com/${path}`);
+        console.log(ref);
         ref.set(data);
     }
 
     push(path, data) {
+        console.log(path);
         const ref = new Firebase(`https://resplendent-fire-9351.firebaseio.com/${path}`);
+        console.log(ref);
         ref.push(data);
     }
 
