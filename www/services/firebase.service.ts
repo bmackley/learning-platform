@@ -17,7 +17,9 @@ export class FirebaseService {
     }
 
     async get(path) {
+        console.log(path);
         const ref = new Firebase(`https://resplendent-fire-9351.firebaseio.com/${path}`);
+        console.log(ref);
         const dataSnapshot = await ref.once('value');
         console.log(dataSnapshot);
         return dataSnapshot.val();
