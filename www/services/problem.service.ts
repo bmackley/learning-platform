@@ -30,7 +30,9 @@ export class ProblemService {
         const path = problemsPath + id;
         console.log(path);
         console.log('*************************');
-        const problem = await this.firebaseService.get(path)
+        console.log(this.firebaseService);
+        console.log(this.firebaseService.get);
+        const problem = await this.firebaseService.get(path);
         return problem;
     }
 }
