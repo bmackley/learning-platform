@@ -12,14 +12,14 @@ export class ProblemService {
         this.firebaseService = firebaseService;
     }
 
-    save(id, data) {
+    async save(id, data) {
         if (id) {
             const path = problemsPath + id;
-            this.firebaseService.set(path, data);
+            await (this.firebaseService.set(path, data));
         }
         else {
             const path = problemsPath;
-            this.firebaseService.push(path, data);
+            await (this.firebaseService.push(path, data));
         }
     }
 
