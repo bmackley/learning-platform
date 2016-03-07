@@ -20,9 +20,9 @@ export class FirebaseService {
         console.log('async get');
         console.log(new Firebase(`https://resplendent-fire-9351.firebaseio.com/${path}`));
         console.log(path);
-        let ref = new Firebase(`https://resplendent-fire-9351.firebaseio.com/${path}`);
+        let shasta = new Firebase(`https://resplendent-fire-9351.firebaseio.com/${path}`);
         console.log(ref);
-        const dataSnapshot = await ref.once('value');
+        const dataSnapshot = await shasta.once('value');
         console.log(dataSnapshot);
         return dataSnapshot.val();
     }
