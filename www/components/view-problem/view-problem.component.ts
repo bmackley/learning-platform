@@ -11,6 +11,7 @@ import {ProblemService} from '../../services/problem.service.ts';
                 <div class="sm-problem-text">{{text}}</div>
                 <input type="text" placeholder="type answer" class="sm-answer-input">
                 <button class="sm-check-answer-button">Check</button>
+                <button (click)="getProblem()">Load problem</button>
             </div>
         </div>
 
@@ -62,18 +63,24 @@ export class ViewProblemComponent {
 	public text: string;
 	public code: string;
 
-    private problemService;
+    private username: string;
+    private problemId: string;
+
+    private problemService: ProblemService;
 
 	constructor(routeParams: RouteParams, problemService: ProblemService) {
         this.problemService = problemService;
 
-		this.getProblem(routeParams.get('username'), routeParams.get('problem-id'));
+        this.username = routeParams.get('username');
+        this.problemId = routeParams.get('problem-id');
+
+		this.getProblem();
 	}
 
-	private async getProblem(username: String, problemId: String) {
-        console.log(username);
-        console.log(problemId);
-        const problem = await this.problemService.getById(problemId, username);
+	private async getProblem() {
+        console.log(this.username);
+        console.log(this.problemId);
+        const problem = await this.problemService.getById(this.problemId, this.username);
         console.log(problem);
 		this.text = problem.text;
 		this.code = problem.code;
