@@ -21,13 +21,15 @@ export class FirebaseService {
     }
 
     async retrieve(path) {
-        console.log('async get');
-        console.log(new Firebase(`https://resplendent-fire-9351.firebaseio.com/${path}`));
-        console.log(path);
-        let shasta = new Firebase(`https://resplendent-fire-9351.firebaseio.com/${path}`);
-        console.log(shasta);
-        const dataSnapshot = await shasta.once('value');
-        console.log(dataSnapshot);
-        return dataSnapshot.val();
+        console.log('just do something');
+        return 'returning 5';
+        // console.log('async get');
+        // console.log(new Firebase(`https://resplendent-fire-9351.firebaseio.com/${path}`));
+        // console.log(path);
+        // let shasta = new Firebase(`https://resplendent-fire-9351.firebaseio.com/${path}`);
+        // console.log(shasta);
+        // const dataSnapshot = await shasta.once('value');
+        // console.log(dataSnapshot);
+        // return dataSnapshot.val();
     }
 }
