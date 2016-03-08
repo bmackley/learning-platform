@@ -11,7 +11,6 @@ import {ProblemService} from '../../services/problem.service.ts';
                 <div class="sm-problem-text">{{text}}</div>
                 <input type="text" placeholder="type answer" class="sm-answer-input">
                 <button class="sm-check-answer-button">Check</button>
-                <button (click)="getProblem()">Load problem</button>
             </div>
         </div>
 
@@ -78,10 +77,8 @@ export class ViewProblemComponent {
 	}
 
 	private async getProblem() {
-        console.log(this.username);
-        console.log(this.problemId);
         const problem = await this.problemService.getById(this.problemId, this.username);
-        console.log(problem);
+
 		this.text = problem.text;
 		this.code = problem.code;
 	}
