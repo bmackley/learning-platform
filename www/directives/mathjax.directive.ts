@@ -1,4 +1,4 @@
-import {Directive, ElementRef, OnChanges, Input} from 'angular2/core';
+import {Directive, ElementRef, OnChanges, Input, Output, EventEmitter} from 'angular2/core';
 
 @Directive({
     selector: '[smMathjax]'
@@ -7,19 +7,24 @@ import {Directive, ElementRef, OnChanges, Input} from 'angular2/core';
 export class MathjaxDirective implements OnChanges {
 
     @Input() text: string;
+    @Output() mathRendered;
 
     private elementRef: ElementRef;
 
     constructor(elementRef: ElementRef) {
         this.elementRef = elementRef;
+
+        this.mathRendered = new EventEmitter();
     }
 
     ngOnChanges() {
         if (this.text) {
-            console.log(this.text);
-            alert('about to update math');
-            MathJax.Hub.Update();
-            alert('math update dispatched or complete');
+            setTimeout(() => {
+                MathJax.Hub.Queue(["Typeset", MathJax.Hub, this.elementRef.nativeElement]);
+                MathJax.Hub.Queue(() => {
+                    this.mathRendered.next();
+                });
+            });
         }
     }
 }

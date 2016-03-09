@@ -2,14 +2,14 @@ import {Component} from 'angular2/core';
 import {Problem} from '../../interfaces/problem.interface.ts';
 import {RouteParams} from 'angular2/router';
 import {ProblemService} from '../../services/problem.service.ts';
-import {MathjaxDirective} from '../../directives/mathjax.directive.ts';
+import {ProblemTextComponent} from '../problem-text/problem-text.component.ts';
 
 @Component({
 	selector: 'view-problem',
 	template: `
         <div class="sm-flex-row sm-flex-center sm-problem-container">
             <div class="sm-flex-col">
-                <div class="sm-problem-text" smMathjax [text]="text">{{text}}</div>
+                <sm-problem-text [text]="text"></sm-problem-text>
                 <input type="text" placeholder="type answer" class="sm-answer-input">
                 <button class="sm-check-answer-button">Check</button>
             </div>
@@ -56,7 +56,7 @@ import {MathjaxDirective} from '../../directives/mathjax.directive.ts';
             }
         </style>
     `,
-    directives: [MathjaxDirective]
+    directives: [ProblemTextComponent]
 })
 
 export class ViewProblemComponent {
@@ -80,7 +80,7 @@ export class ViewProblemComponent {
 
 	private async getProblem() {
         const problem = await this.problemService.getById(this.problemId, this.username);
-
+        
 		this.text = problem.text;
 		this.code = problem.code;
 	}
