@@ -10,8 +10,8 @@ import {ProblemTextComponent} from '../problem-text/problem-text.component.ts';
         <div class="sm-flex-row sm-flex-center sm-problem-container">
             <div class="sm-flex-col">
                 <sm-problem-text [text]="text"></sm-problem-text>
-                <input type="text" placeholder="type answer" class="sm-answer-input">
-                <button class="sm-check-answer-button">Check</button>
+                <input #answerInput type="text" placeholder="type answer" class="sm-answer-input">
+                <button class="sm-check-answer-button" (click)="checkAnswer(answerInput.value)">Check</button>
             </div>
         </div>
 
@@ -63,6 +63,7 @@ export class ViewProblemComponent {
 
 	public text: string;
 	public code: string;
+    public answer;
 
     private username: string;
     private problemId: string;
@@ -75,14 +76,32 @@ export class ViewProblemComponent {
         this.username = routeParams.get('username');
         this.problemId = routeParams.get('problem-id');
 
-		this.getProblem();
+		(async () => {
+            await this.getProblem();
+            this.executeProblemCode();
+        })();
 	}
 
 	private async getProblem() {
         const problem = await this.problemService.getById(this.problemId, this.username);
-        
+
 		this.text = problem.text;
 		this.code = problem.code;
 	}
+
+    private executeProblemCode() {
+        let answer;
+        eval(this.code);
+        this.answer = answer.toString();
+    }
+
+    checkAnswer(studentAnswer) {
+        if (this.answer.toLowerCase() === studentAnswer.toLowerCase()) {
+            alert('Correct!');
+        }
+        else {
+            alert('Incorrect');
+        }
+    }
 
 }
