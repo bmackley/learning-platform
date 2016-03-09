@@ -12,7 +12,7 @@ import {Component} from 'angular2/core';
                 height: 28px;
                 width: 28px;
                 animation: rotate 0.8s infinite linear;
-                border: 8px solid grey;
+                border: 8px solid rgba(0, 0, 0, .25);
                 border-right-color: transparent;
                 border-radius: 50%;
             }

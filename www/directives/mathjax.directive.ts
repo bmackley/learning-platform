@@ -20,10 +20,18 @@ export class MathjaxDirective implements OnChanges {
     ngOnChanges() {
         if (this.text) {
             setTimeout(() => {
-                MathJax.Hub.Queue(["Typeset", MathJax.Hub, this.elementRef.nativeElement]);
-                MathJax.Hub.Queue(() => {
-                    this.mathRendered.next();
-                });
+                //TODO This is all wrong. The order of events is not gauranteed, depending on the way I do it there are large delays: http://docs.mathjax.org/en/latest/advanced/typeset.html
+                MathJax.Hub.Typeset(this.elementRef.nativeElement);
+                this.mathRendered.next();
+                //MathJax.Hub.Queue(["Typeset", MathJax.Hub, this.elementRef.nativeElement]);
+                // MathJax.Hub.Queue(() => {
+                //     this.mathRendered.next();
+                // });
+                // MathJax.Hub.Queue(() => {
+                //     MathJax.Hub.Typeset(this.elementRef.nativeElement, () => {
+                //         this.mathRendered.next();
+                //     });
+                // });
             });
         }
     }
