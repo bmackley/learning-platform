@@ -102,7 +102,6 @@ export class ViewProblemComponent {
 
         problemWorker.onmessage = (e) => {
             const answer = e.data;
-            console.log('answer calculated: ' + answer);
             this.answer = answer.toString();
         };
     }
