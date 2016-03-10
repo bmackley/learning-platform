@@ -78,7 +78,13 @@ export class ViewProblemComponent {
 
 		(async () => {
             await this.getProblem();
-            this.executeProblemCode();
+
+            try {
+                this.executeProblemCode();
+            }
+            catch(error) {
+                console.log(error);
+            }
         })();
 	}
 
@@ -90,9 +96,15 @@ export class ViewProblemComponent {
 	}
 
     private executeProblemCode() {
-        let answer;
-        eval(this.code);
-        this.answer = answer.toString();
+        var problemWorker = new Worker('www/services/problem-worker.service.ts');
+
+        problemWorker.postMessage(this.code);
+
+        problemWorker.onmessage = (e) => {
+            const answer = e.data;
+            console.log('answer calculated: ' + answer);
+            this.answer = answer.toString();
+        };
     }
 
     checkAnswer(studentAnswer) {
