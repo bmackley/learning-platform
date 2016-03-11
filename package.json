@@ -18,7 +18,7 @@
   "homepage": "https://github.com/lastmj/asl-fingerspelling-2#readme",
   "dependencies": {
     "angular2": "2.0.0-beta.9",
-    "babel-polyfill": "6.3.14",
+    "babel-polyfill": "6.6.0",
     "es6-shim": "0.33.3",
     "redux": "3.3.1",
     "reflect-metadata": "0.1.2",
