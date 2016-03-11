@@ -1,0 +1,8 @@
+{
+  "firebase": "resplendent-fire-9351",
+  "public": "www",
+  "ignore": [
+    "firebase.json",
+    "**/.*"
+  ]
+}
