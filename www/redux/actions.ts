@@ -6,7 +6,7 @@ export const Actions = {
         execute: async (store, problemId) => {
             const problem = await ProblemModel.getById(problemId);
 
-            var problemWorker = new Worker('www/services/problem-worker.service.ts');
+            var problemWorker = new Worker('services/problem-worker.service.ts');
 
             problemWorker.postMessage(problem.code);
 
