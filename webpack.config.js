@@ -1,14 +1,16 @@
 module.exports = {
     entry: {
         'angular2': [
-            './www/node_modules/rxjs',
-            './www/node_modules/reflect-metadata',
-            './www/node_modules/angular2/core',
-            './www/node_modules/angular2/router',
-            './www/node_modules/angular2/http',
-            './www/node_modules/angular2/common'
+            './node_modules/rxjs',
+            './node_modules/reflect-metadata',
+            './node_modules/angular2/core',
+            './node_modules/angular2/router',
+            './node_modules/angular2/http',
+            './node_modules/angular2/common',
+            './node_modules/angular2/bundles/angular2-polyfills.js'
         ],
-        'redux': './www/node_modules/redux/dist/redux.min.js',
+        'babel-polyfill': './node_modules/babel-polyfill/dist/polyfill.min.js',
+        'redux': './node_modules/redux/dist/redux.min.js',
         'app': './www/boot.ts'
     },
     output: {

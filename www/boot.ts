@@ -5,6 +5,7 @@ import {provide} from 'angular2/core';
 import {createStore} from 'redux';
 import {rootReducer} from './redux/reducers.ts';
 import {Constants} from './services/constants.service.ts';
+import 'babel-polyfill';
 
 const store = createStore(rootReducer);
 

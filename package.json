@@ -16,6 +16,15 @@
     "url": "https://github.com/lastmj/asl-fingerspelling-2/issues"
   },
   "homepage": "https://github.com/lastmj/asl-fingerspelling-2#readme",
+  "dependencies": {
+    "angular2": "^2.0.0-beta.6",
+    "babel-polyfill": "^6.3.14",
+    "es6-shim": "^0.33.13",
+    "redux": "^3.3.1",
+    "reflect-metadata": "0.1.2",
+    "rxjs": "5.0.0-beta.2",
+    "zone.js": "0.5.15"
+    },
   "devDependencies": {
     "babel-core": "^6.3.26",
     "babel-loader": "^6.2.1",
