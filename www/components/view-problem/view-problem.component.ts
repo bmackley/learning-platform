@@ -3,6 +3,7 @@ import {RouteParams} from 'angular2/router';
 import {ProblemTextComponent} from '../problem-text/problem-text.component.ts';
 import {Constants} from '../../services/constants.service.ts';
 import {Actions} from '../../redux/actions.ts';
+import {API} from '../../services/api.service.ts';
 
 @Component({
 	selector: 'view-problem',
@@ -84,10 +85,12 @@ export class ViewProblemComponent implements OnDestroy {
 
     checkAnswer(studentAnswer) {
         if (this.answer.toLowerCase() === studentAnswer.toLowerCase()) {
-            alert('Correct!');
+            API.correctAttempt();
+            //alert('Correct!');
         }
         else {
-            alert('Incorrect');
+            API.incorrectAttemp();
+            //alert('Incorrect');
         }
     }
 
