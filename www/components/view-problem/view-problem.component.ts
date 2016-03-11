@@ -68,15 +68,16 @@ export class ViewProblemComponent implements OnDestroy {
 
     private store;
     private unsubscribe;
+    private problemId;
 
 	constructor(@Inject(Constants.REDUX_STORE) store, routeParams: RouteParams) {
         const username = routeParams.get('username');
-        const problemId = routeParams.get('problem-id');
+        this.problemId = routeParams.get('problem-id');
 
         this.unsubscribe = store.subscribe(this.mapStateToThis(store));
 
         try {
-            Actions.setProblem.execute(store, problemId);
+            Actions.setProblem.execute(store, this.problemId);
         }
         catch(error) {
             console.log(error);
@@ -85,12 +86,10 @@ export class ViewProblemComponent implements OnDestroy {
 
     checkAnswer(studentAnswer) {
         if (this.answer.toLowerCase() === studentAnswer.toLowerCase()) {
-            API.correctAttempt();
-            //alert('Correct!');
+            API.correctAttempt(this.problemId);
         }
         else {
-            API.incorrectAttemp();
-            //alert('Incorrect');
+            API.incorrectAttempt(this.problemId);
         }
     }
 

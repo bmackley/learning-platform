@@ -1,8 +1,8 @@
 export const API = {
-    correctAttempt: () => {
-        parent.postMessage('correct attempt', '*');
+    correctAttempt: (problemId) => {
+        parent.postMessage('correct attempt on problem: ' + problemId, '*');
     },
-    incorrectAttemp: () => {
-        parent.postMessage('incorrect attempt', '*');
+    incorrectAttempt: (problemId) => {
+        parent.postMessage('incorrect attempt on problem: ' + problemId, '*');
     }
 };
