@@ -18,8 +18,6 @@ export class MathjaxDirective implements OnChanges {
     }
 
     ngOnChanges() {
-        console.log('mathjax directive');
-        console.log(this.text);
         if (this.text) {
             setTimeout(() => {
                 //TODO This is all wrong. The order of events is not gauranteed, depending on the way I do it there are large delays: http://docs.mathjax.org/en/latest/advanced/typeset.html
