@@ -8,6 +8,7 @@ module.exports = {
             './www/node_modules/angular2/http',
             './www/node_modules/angular2/common'
         ],
+        'redux': './www/node_modules/redux/dist/redux.min.js',
         'app': './www/boot.ts'
     },
     output: {

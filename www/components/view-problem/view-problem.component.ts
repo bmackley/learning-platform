@@ -1,8 +1,8 @@
-import {Component} from 'angular2/core';
-import {Problem} from '../../interfaces/problem.interface.ts';
+import {Component, Inject, OnDestroy} from 'angular2/core';
 import {RouteParams} from 'angular2/router';
-import {ProblemService} from '../../services/problem.service.ts';
 import {ProblemTextComponent} from '../problem-text/problem-text.component.ts';
+import {Constants} from '../../services/constants.service.ts';
+import {Actions} from '../../redux/actions.ts';
 
 @Component({
 	selector: 'view-problem',
@@ -59,52 +59,28 @@ import {ProblemTextComponent} from '../problem-text/problem-text.component.ts';
     directives: [ProblemTextComponent]
 })
 
-export class ViewProblemComponent {
+export class ViewProblemComponent implements OnDestroy {
 
 	public text: string;
 	public code: string;
     public answer;
 
-    private username: string;
-    private problemId: string;
+    private store;
+    private unsubscribe;
 
-    private problemService: ProblemService;
+	constructor(@Inject(Constants.REDUX_STORE) store, routeParams: RouteParams) {
+        const username = routeParams.get('username');
+        const problemId = routeParams.get('problem-id');
 
-	constructor(routeParams: RouteParams, problemService: ProblemService) {
-        this.problemService = problemService;
+        this.unsubscribe = store.subscribe(this.mapStateToThis(store));
 
-        this.username = routeParams.get('username');
-        this.problemId = routeParams.get('problem-id');
-
-		(async () => {
-            await this.getProblem();
-
-            try {
-                this.executeProblemCode();
-            }
-            catch(error) {
-                console.log(error);
-            }
-        })();
+        try {
+            Actions.setProblem.execute(store, problemId);
+        }
+        catch(error) {
+            console.log(error);
+        }
 	}
-
-	private async getProblem() {
-        const problem = await this.problemService.getById(this.problemId, this.username);
-
-		this.text = problem.text;
-		this.code = problem.code;
-	}
-
-    private executeProblemCode() {
-        var problemWorker = new Worker('www/services/problem-worker.service.ts');
-
-        problemWorker.postMessage(this.code);
-
-        problemWorker.onmessage = (e) => {
-            const answer = e.data;
-            this.answer = answer.toString();
-        };
-    }
 
     checkAnswer(studentAnswer) {
         if (this.answer.toLowerCase() === studentAnswer.toLowerCase()) {
@@ -113,6 +89,19 @@ export class ViewProblemComponent {
         else {
             alert('Incorrect');
         }
+    }
+
+    mapStateToThis(store) {
+        return () => {
+            const state = store.getState();
+
+            this.text = state.currentProblem.text;
+            this.answer = state.currentProblem.answer;
+        };
+    }
+
+    ngOnDestroy() {
+        this.unsubscribe();
     }
 
 }
