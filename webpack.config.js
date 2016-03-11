@@ -6,11 +6,10 @@ module.exports = {
             './node_modules/angular2/core',
             './node_modules/angular2/router',
             './node_modules/angular2/http',
-            './node_modules/angular2/common',
-            './node_modules/angular2/bundles/angular2-polyfills.js'
+            './node_modules/angular2/common'
         ],
+        'angular2-polyfills': './node_modules/angular2/bundles/angular2-polyfills.js',
         'babel-polyfill': './node_modules/babel-polyfill/dist/polyfill.min.js',
-        'redux': './node_modules/redux/dist/redux.min.js',
         'app': './www/boot.ts'
     },
     output: {

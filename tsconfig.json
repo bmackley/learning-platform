@@ -7,8 +7,7 @@
     "noImplicitAny": false
   },
   "exclude": [
-      "node_modules",
-      "www/node_modules"
+      "node_modules"
   ],
   "compileOnSave": false
 }

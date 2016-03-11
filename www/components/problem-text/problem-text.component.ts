@@ -37,4 +37,9 @@ export class ProblemTextComponent {
         this.hideText = false;
     }
 
+    ngOnChanges() {
+        console.log('problem-text.component');
+        console.log(this.text);
+    }
+
 }

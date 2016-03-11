@@ -9,6 +9,7 @@ import {Actions} from '../../redux/actions.ts';
 	template: `
         <div class="sm-flex-row sm-flex-center sm-problem-container">
             <div class="sm-flex-col">
+                <div>{{text}}</div>
                 <sm-problem-text [text]="text"></sm-problem-text>
                 <input #answerInput type="text" placeholder="type answer" class="sm-answer-input">
                 <button class="sm-check-answer-button" (click)="checkAnswer(answerInput.value)">Check</button>
