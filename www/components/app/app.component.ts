@@ -5,7 +5,7 @@ import {EditProblemComponent} from '../edit-problem/edit-problem.component.ts';
 
 @Component({
 	selector: 'app',
-	templateUrl: 'www/components/app/app.html',
+	templateUrl: 'components/app/app.html',
 	directives: [ROUTER_DIRECTIVES]
 })
 
