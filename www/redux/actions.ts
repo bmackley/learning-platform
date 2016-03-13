@@ -6,9 +6,17 @@ export const Actions = {
         execute: async (store, problemId) => {
             const problem = await ProblemModel.getById(problemId);
 
-            var problemWorker = new Worker('services/problem-worker.service.ts');
+            //these strings need to be grabbed from the user text. The variables in the user text are defined thusly: {{num1}}
+            const userVariables = [
+                'num1',
+                'num2'
+            ];
 
-            problemWorker.postMessage(problem.code);
+            const problemWorker = new Worker('services/problem-worker.service.ts');
+            problemWorker.postMessage({
+                userVariables,
+                userCode: problem.code
+            });
 
             problemWorker.onmessage = (e) => {
                 const answer = e.data.toString();
