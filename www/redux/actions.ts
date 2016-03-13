@@ -12,6 +12,13 @@ export const Actions = {
                 'num2'
             ];
 
+            //grab all the user variables here
+            const temp = /{{.*}}/.exec(problem.text);
+
+            console.log(temp);
+
+            const text = problem.text;
+
             const problemWorker = new Worker('services/problem-worker.service.ts');
             problemWorker.postMessage({
                 userVariables,
@@ -23,7 +30,7 @@ export const Actions = {
 
                 store.dispatch({
                     type: Actions.setProblem.type,
-                    text: problem.text,
+                    text,
                     code: problem.code,
                     answer: answer
                 });
