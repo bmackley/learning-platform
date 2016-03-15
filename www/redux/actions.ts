@@ -6,18 +6,19 @@ export const Actions = {
         execute: async (store, problemId) => {
             const problem = await ProblemModel.getById(problemId);
 
-            //these strings need to be grabbed from the user text. The variables in the user text are defined thusly: {{num1}}
-            const userVariables = [
-                'num1',
-                'num2'
-            ];
+            const re = /{{(.*?)}}/g;
+            const retrieveUserVariables = (matches) => {
 
-            //grab all the user variables here
-            const temp = /{{.*}}/.exec(problem.text);
+                const match = re.exec(problem.text);
 
-            console.log(temp);
+                if (!match) {
+                    return matches;
+                }
 
-            const text = problem.text;
+                return retrieveUserVariables([...matches, match[1]]);
+            };
+
+            const userVariables = retrieveUserVariables([]);
 
             const problemWorker = new Worker('services/problem-worker.service.ts');
             problemWorker.postMessage({
@@ -27,6 +28,7 @@ export const Actions = {
 
             problemWorker.onmessage = (e) => {
                 const answer = e.data.toString();
+                const text = problem.text;
 
                 store.dispatch({
                     type: Actions.setProblem.type,

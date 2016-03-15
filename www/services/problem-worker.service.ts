@@ -36,10 +36,9 @@ onmessage = function(e) {
     }, '');
 
     const createProxies = userVariables.reduce((prev, curr) => {
-        return `${prev}${curr} = new Proxy(${curr}_orig_object, handler);`;
+        return `${prev} var ${curr} = new Proxy(${curr}_orig_object, handler);`;
     }, '');
 
-    let answer;
     eval(createUserVariableObjects);
     eval(createProxies);
     eval(userCode);
