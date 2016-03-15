@@ -27,14 +27,20 @@ export const Actions = {
             });
 
             problemWorker.onmessage = (e) => {
-                const answer = e.data.toString();
-                const text = problem.text;
+                const result = e.data;
+                const answer = result.answer.toString();
+                const userVariableValues = result.userVariableValues;
+
+                const text = userVariableValues.reduce((prev, curr) => {
+                    const re = new RegExp(`{{${curr.name}}}`);
+                    return prev.replace(re, curr.value);
+                }, problem.text);
 
                 store.dispatch({
                     type: Actions.setProblem.type,
                     text,
                     code: problem.code,
-                    answer: answer
+                    answer
                 });
             };
         }

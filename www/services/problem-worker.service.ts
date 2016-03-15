@@ -43,7 +43,20 @@ onmessage = function(e) {
     eval(createProxies);
     eval(userCode);
 
-    console.log(`answer: ${answer}`);
+    if (typeof answer !== 'string' || typeof answer !== 'number') {
+        //the answer is probably still a proxy object. It must be converted to its value
+        answer = +answer;
+    }
 
-    postMessage(answer); //TODO There is a second parameter to postMessage that I might need to add here in the future. The second parameter specifies the domain that can receive the message
+    const userVariableValues = userVariables.map((element) => {
+        return {
+            name: element,
+            value: eval(`+${element}`)
+        };
+    });
+
+    postMessage({
+        answer,
+        userVariableValues
+    }); //TODO There is a second parameter to postMessage that I might need to add here in the future. The second parameter specifies the domain that can receive the message
 };
