@@ -13,6 +13,10 @@ import {API} from '../../services/api.service.ts';
                 <sm-problem-text [text]="text"></sm-problem-text>
                 <input #answerInput type="text" placeholder="type answer" class="sm-answer-input">
                 <button class="sm-check-answer-button" (click)="checkAnswer(answerInput.value)">Check</button>
+                <div class="sm-flex-row" style="margin-top: 25px">
+                    <button (click)="loadPrevProblem()">Prev</button>
+                    <button (click)="loadNextProblem()" style="margin-left: auto">Next</button>
+                </div>
             </div>
         </div>
 
@@ -69,8 +73,10 @@ export class ViewProblemComponent implements OnDestroy {
     private store;
     private unsubscribe;
     private problemId;
+    private store;
 
 	constructor(@Inject(Constants.REDUX_STORE) store, routeParams: RouteParams) {
+        this.store = store;
         const username = routeParams.get('username');
         this.problemId = routeParams.get('problem-id');
 
@@ -92,6 +98,19 @@ export class ViewProblemComponent implements OnDestroy {
         else {
             console.log('API.incorrectAttempt');
             API.incorrectAttempt(this.problemId);
+        }
+    }
+
+    loadPrevProblem() {
+        alert('not implemented');
+    }
+
+    loadNextProblem() {
+        try {
+            Actions.setProblem.execute(this.store, this.problemId);
+        }
+        catch(error) {
+            console.log(error);
         }
     }
 
