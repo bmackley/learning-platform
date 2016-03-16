@@ -4,9 +4,9 @@ import {Directive, ElementRef, OnChanges, Input, Output, EventEmitter} from 'ang
     selector: '[smMathjax]'
 })
 
-export class MathjaxDirective implements OnChanges {
+export class MathjaxDirective {
 
-    @Input() text: string;
+    @Input() text;
     @Output() mathRendered;
 
     private elementRef: ElementRef;
@@ -17,8 +17,15 @@ export class MathjaxDirective implements OnChanges {
         this.mathRendered = new EventEmitter();
     }
 
-    ngOnChanges() {
-        if (this.text) {
+    ngOnInit() {
+        console.log('mathjax oninit');
+        console.log(this.text.value);
+    }
+
+    ngDoCheck() {
+        console.log('mathjax docheck');
+        console.log(this.text.value);
+        if (this.text.value) {
             setTimeout(() => {
                 //TODO This is all wrong. The order of events is not gauranteed, depending on the way I do it there are large delays: http://docs.mathjax.org/en/latest/advanced/typeset.html
                 MathJax.Hub.Typeset(this.elementRef.nativeElement);

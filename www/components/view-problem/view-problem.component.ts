@@ -1,4 +1,4 @@
-import {Component, Inject, OnDestroy} from 'angular2/core';
+import {Component, Inject, OnDestroy, OnInit, Injector, DynamicComponentLoader, ElementRef} from 'angular2/core';
 import {RouteParams} from 'angular2/router';
 import {ProblemTextComponent} from '../problem-text/problem-text.component.ts';
 import {Constants} from '../../services/constants.service.ts';
@@ -10,7 +10,7 @@ import {API} from '../../services/api.service.ts';
 	template: `
         <div class="sm-flex-row sm-flex-center sm-problem-container">
             <div class="sm-flex-col">
-                <sm-problem-text [text]="text"></sm-problem-text>
+                <div id="problemTextContainer"></div>
                 <input #answerInput type="text" placeholder="type answer" class="sm-answer-input">
                 <button class="sm-check-answer-button" (click)="checkAnswer(answerInput.value)">Check</button>
                 <div class="sm-flex-row" style="margin-top: 25px">
@@ -64,7 +64,7 @@ import {API} from '../../services/api.service.ts';
     directives: [ProblemTextComponent]
 })
 
-export class ViewProblemComponent implements OnDestroy {
+export class ViewProblemComponent implements OnDestroy, OnInit {
 
 	public text: string;
 	public code: string;
@@ -73,21 +73,19 @@ export class ViewProblemComponent implements OnDestroy {
     private store;
     private unsubscribe;
     private problemId;
-    private store;
+    private injector;
+    private dcl;
+    private elementRef;
 
-	constructor(@Inject(Constants.REDUX_STORE) store, routeParams: RouteParams) {
+	constructor(@Inject(Constants.REDUX_STORE) store, routeParams: RouteParams, injector: Injector, dcl: DynamicComponentLoader, elementRef: ElementRef) {
         this.store = store;
+        this.injector = injector;
+        this.dcl = dcl;
+        this.elementRef = elementRef;
         const username = routeParams.get('username');
         this.problemId = routeParams.get('problem-id');
 
         this.unsubscribe = store.subscribe(this.mapStateToThis(store));
-
-        try {
-            Actions.setProblem.execute(store, this.problemId);
-        }
-        catch(error) {
-            console.log(error);
-        }
 	}
 
     checkAnswer(studentAnswer) {
@@ -105,9 +103,18 @@ export class ViewProblemComponent implements OnDestroy {
         alert('not implemented');
     }
 
-    loadNextProblem() {
+    async loadNextProblem() {
         try {
-            Actions.setProblem.execute(this.store, this.problemId);
+            await Actions.setProblem.execute(this.store, this.problemId);
+
+            const problemTextComponent = this.injector.get(Constants.PROBLEM_TEXT_COMPONENT);
+            const ref = await this.dcl.loadAsRoot(problemTextComponent, '#problemTextContainer', this.injector);
+            ref.instance.text = {
+                value: this.text
+            };
+
+            //TODO strange hack to get ngOnInit or change detection to work with the component loading with loadAsRoot. See here: https://github.com/angular/angular/issues/6748
+            ref.location.internalElement.parentView.changeDetector.ref.detectChanges();
         }
         catch(error) {
             console.log(error);
@@ -121,6 +128,10 @@ export class ViewProblemComponent implements OnDestroy {
             this.text = state.currentProblem.text;
             this.answer = state.currentProblem.answer;
         };
+    }
+
+    ngOnInit() {
+        this.loadNextProblem();
     }
 
     ngOnDestroy() {

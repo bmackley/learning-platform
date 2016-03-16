@@ -1,15 +1,15 @@
-import {Component, Input} from 'angular2/core';
+import {Component, Input, DoCheck} from 'angular2/core';
 import {MathjaxDirective} from '../../directives/mathjax.directive.ts';
 import {SpinnerComponent} from '../spinner/spinner.component.ts';
 
 @Component({
 	selector: 'sm-problem-text',
 	template: `
-        <div class="sm-problem-text" smMathjax [text]="text" [hidden]="hideText" (mathRendered)="setHideText()">{{text}}</div>
+        <div class="sm-problem-text" smMathjax [text]="text" [hidden]="hideText" (mathRendered)="setHideText()">{{text.value}}</div>
 
-        <div class="sm-flex-row sm-flex-center">
+        <!--<div class="sm-flex-row sm-flex-center">
             <sm-spinner [hidden]="!hideText"></sm-spinner>
-        </div>
+        </div>-->
 
         <style>
             @import 'www/components/app/app.css';
@@ -25,7 +25,7 @@ import {SpinnerComponent} from '../spinner/spinner.component.ts';
 
 export class ProblemTextComponent {
 
-	@Input() text: string;
+	@Input() text;
 
     public hideText: boolean;
 
@@ -34,7 +34,7 @@ export class ProblemTextComponent {
 	}
 
     setHideText() {
+        console.log('setHidetext');
         this.hideText = false;
     }
-
 }
