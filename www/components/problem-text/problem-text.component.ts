@@ -1,13 +1,13 @@
-import {Component, Input, DoCheck} from 'angular2/core';
+import {Component, Input, DoCheck, ChangeDetectorRef} from 'angular2/core';
 import {SpinnerComponent} from '../spinner/spinner.component.ts';
 
 @Component({
 	selector: 'sm-problem-text',
 	template: `
-        <div class="sm-problem-text" (mathRendered)="setHideText()">{{text.value}}</div>
+        <div class="sm-problem-text" [hidden]="hideText">{{text}}</div>
 
-        <!--<div class="sm-flex-row sm-flex-center">
-            <sm-spinner [hidden]="!hideText"></sm-spinner>
+        <!--<div class="sm-flex-row sm-flex-center" [hidden]="!hideText">
+            <sm-spinner></sm-spinner>
         </div>-->
 
         <style>
@@ -26,36 +26,27 @@ export class ProblemTextComponent {
 
 	@Input() text;
 
-    public hideText: boolean;
-    public renderMath;
+    public hideText;
 
-	constructor() {
+    private changeDetector;
+
+	constructor(changeDetector: ChangeDetectorRef) {
         this.hideText = true;
 
-        this.renderMath = () => {};
+        this.changeDetector = changeDetector;
 	}
-
-    setHideText() {
-        console.log('setHidetext');
-        this.hideText = false;
-        console.log(this.hideText);
-    }
 
     ngOnInit() {
         setTimeout(() => {
             MathJax.Hub.Typeset();
             this.hideText = false;
-            // console.log('rendering math');
-            // MathJax.Hub.Typeset(this.elementRef.nativeElement);
-            // this.mathRendered.next();
-            //TODO This is all wrong. The order of events is not gauranteed, depending on the way I do it there are large delays: http://docs.mathjax.org/en/latest/advanced/typeset.html
-            //MathJax.Hub.Queue(["Typeset", MathJax.Hub, this.elementRef.nativeElement]);
+            this.changeDetector.detectChanges();
+            //TODO this component has serious problems with change detection. It seems that because it is instantiated with loadAsRoot, change detection must be run manually. See here: See here: https://github.com/angular/angular/issues/6748
+
             // MathJax.Hub.Queue(() => {
-            //     this.mathRendered.next();
-            // });
-            // MathJax.Hub.Queue(() => {
-            //     MathJax.Hub.Typeset(this.elementRef.nativeElement, () => {
-            //         this.mathRendered.next();
+            //     MathJax.Hub.Typeset(null, () => {
+            //         this.hideText = false;
+            //         this.changeDetector.detectChanges();
             //     });
             // });
         });

@@ -109,9 +109,7 @@ export class ViewProblemComponent implements OnDestroy, OnInit {
 
             const problemTextComponent = this.injector.get(Constants.PROBLEM_TEXT_COMPONENT);
             const ref = await this.dcl.loadAsRoot(problemTextComponent, '#problemTextContainer', this.injector);
-            ref.instance.text = {
-                value: this.text
-            };
+            ref.instance.text = this.text;
 
             //TODO strange hack to get ngOnInit or change detection to work with the component loading with loadAsRoot. See here: https://github.com/angular/angular/issues/6748
             ref.location.internalElement.parentView.changeDetector.ref.detectChanges();
