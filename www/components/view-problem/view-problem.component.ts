@@ -89,6 +89,7 @@ export class ViewProblemComponent implements OnDestroy, OnInit {
 	}
 
     checkAnswer(studentAnswer) {
+        
         if (this.answer.toLowerCase() === studentAnswer.toLowerCase()) {
             console.log('API.correctAttempt');
             API.correctAttempt(this.problemId);

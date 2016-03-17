@@ -43,15 +43,23 @@ onmessage = function(e) {
     eval(createProxies);
     eval(userCode);
 
-    if (typeof answer !== 'string' || typeof answer !== 'number') {
+    if (typeof answer !== 'string' && typeof answer !== 'number') {
         //the answer is probably still a proxy object. It must be converted to its value
         answer = +answer;
     }
 
     const userVariableValues = userVariables.map((element) => {
+
+        let evaluatedElement = eval(element);
+
+        if (typeof evaluatedElement !== 'string' && typeof evaluatedElement !== 'number') {
+            //if the user variables are still proxy objects. They must be converted to their primitive values
+            evaluatedElement = +evaluatedElement;
+        }
+
         return {
             name: element,
-            value: eval(`+${element}`)
+            value: evaluatedElement
         };
     });
 
