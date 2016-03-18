@@ -89,14 +89,12 @@ export class ViewProblemComponent implements OnDestroy, OnInit {
 	}
 
     checkAnswer(studentAnswer) {
-        
+
         if (this.answer.toLowerCase() === studentAnswer.toLowerCase()) {
-            console.log('API.correctAttempt');
-            API.correctAttempt(this.problemId);
+            API.answerAttempt(this.problemId, true, this.text, this.answer, studentAnswer);
         }
         else {
-            console.log('API.incorrectAttempt');
-            API.incorrectAttempt(this.problemId);
+            API.answerAttempt(this.problemId, false, this.text, this.answer, studentAnswer);
         }
     }
 
