@@ -3,13 +3,13 @@ import {Constants} from '../../services/constants.service.ts';
 import {Actions} from '../../redux/actions.ts';
 
 @Component({
-	selector: 'sm-code-mirror',
+	selector: 'sm-ckeditor',
 	template: `
-        <textarea #codeTextArea type="text" (keyup)="textChanged(codeTextArea.value)" style="height: 500px; width: 500px" placeholder="Enter code here"></textarea>
+        <textarea #textTextArea type="text" (keyup)="textChanged(textTextArea.value)" style="height: 500px; width: 500px" placeholder="Enter text here"></textarea>
     `
 })
 
-export class CodeMirrorComponent {
+export class CkeditorComponent {
 
     private store;
 
@@ -18,6 +18,6 @@ export class CodeMirrorComponent {
 	}
 
     textChanged(value) {
-        Actions.setEditProblemCode.execute(this.store, value);
+        Actions.setEditProblemText.execute(this.store, value);
     }
 }

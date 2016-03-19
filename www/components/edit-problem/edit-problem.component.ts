@@ -2,16 +2,18 @@ import {Component, Inject} from 'angular2/core';
 import {Constants} from '../../services/constants.service.ts';
 import {RouteParams} from 'angular2/router';
 import {ProblemModel} from '../../models/problem.model.ts';
+import {CkeditorComponent} from '../ckeditor/ckeditor.component.ts';
 import {CodeMirrorComponent} from '../code-mirror/code-mirror.component.ts';
 import {Actions} from '../../redux/actions.ts';
 
 @Component({
 	selector: 'edit-problem',
 	template: `
+        <sm-ckeditor></sm-ckeditor>
         <sm-code-mirror></sm-code-mirror>
         <button (click)="saveProblem()">Save</button>
     `,
-    directives: [CodeMirrorComponent]
+    directives: [CkeditorComponent, CodeMirrorComponent]
 })
 
 export class EditProblemComponent {
@@ -39,6 +41,8 @@ export class EditProblemComponent {
     mapStateToThis(store) {
         return () => {
             const state = store.getState();
+
+            console.log(state);
 
             this.text = state.currentEditProblem.text;
             this.code = state.currentEditProblem.code;
