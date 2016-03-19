@@ -31,10 +31,10 @@ export class EditProblemComponent {
         this.unsubscribe = store.subscribe(this.mapStateToThis(store));
 	}
 
-	saveProblem(text: string, code: string) {
+	saveProblem() {
 		Actions.saveEditProblem.execute(this.store, this.problemId, {
-			text: text,
-			code: code
+			text: this.text,
+			code: this.code
 		});
 	}
 
