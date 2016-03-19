@@ -12,7 +12,7 @@ import {Actions} from '../../redux/actions.ts';
         <a [routerLink]="['ViewProblem', { username: 'lastmjs', 'problem-id': problemId }]">View Problem</a>
 
         <div style="display: flex; flex-direction: row; margin-top: 25px;">
-            <sm-ckeditor [originalText]="originalText" style="flex: 1"></sm-ckeditor>
+            <sm-ckeditor [originalText]="originalText" style="flex: 1; margin-right: 25px"></sm-ckeditor>
             <sm-code-mirror [originalCode]="originalCode" style="flex: 1"></sm-code-mirror>
         </div>
 
