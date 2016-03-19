@@ -104,7 +104,7 @@ export class ViewProblemComponent implements OnDestroy, OnInit {
 
     async loadNextProblem() {
         try {
-            await Actions.setProblem.execute(this.store, this.problemId);
+            await Actions.getViewProblem.execute(this.store, this.problemId);
 
             const problemTextComponent = this.injector.get(Constants.PROBLEM_TEXT_COMPONENT);
             const ref = await this.dcl.loadAsRoot(problemTextComponent, '#problemTextContainer', this.injector);

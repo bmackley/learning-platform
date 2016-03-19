@@ -3,7 +3,7 @@ import {Actions} from './actions.ts';
 
 export function rootReducer(state = InitialState, action) {
     switch(action.type) {
-        case Actions.setProblem.type: {
+        case Actions.getViewProblem.type: {
             const newState = Object.assign({}, state);
 
             newState.currentViewProblem = {

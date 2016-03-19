@@ -1,8 +1,8 @@
 import {ProblemModel} from '../models/problem.model.ts';
 
 export const Actions = {
-    setProblem: {
-        type: 'SET_PROBLEM',
+    getViewProblem: {
+        type: 'GET_VIEW_PROBLEM',
         execute: (store, problemId) => {
             return new Promise(async function(resolve, reject) {
                 const problem = await ProblemModel.getById(problemId);
@@ -38,7 +38,7 @@ export const Actions = {
                     }, problem.text);
 
                     store.dispatch({
-                        type: Actions.setProblem.type,
+                        type: Actions.getViewProblem.type,
                         text,
                         code: problem.code,
                         answer

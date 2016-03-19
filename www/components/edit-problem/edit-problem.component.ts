@@ -9,8 +9,8 @@ import {Actions} from '../../redux/actions.ts';
 @Component({
 	selector: 'edit-problem',
 	template: `
-        <sm-ckeditor></sm-ckeditor>
-        <sm-code-mirror></sm-code-mirror>
+        <sm-ckeditor [originalText]="originalText"></sm-ckeditor>
+        <sm-code-mirror [originalCode]="originalCode"></sm-code-mirror>
         <button (click)="saveProblem()">Save</button>
     `,
     directives: [CkeditorComponent, CodeMirrorComponent]
@@ -20,8 +20,10 @@ export class EditProblemComponent {
 
 	private problemId: String
     private store;
-    private text;
-    private code;
+    private originalText;
+    private originalCode;
+    private currentText;
+    private currentCode;
     private unsubscribe;
 
 	constructor(@Inject(Constants.REDUX_STORE) store, routeParams: RouteParams) {
@@ -29,12 +31,23 @@ export class EditProblemComponent {
     	this.problemId = routeParams.get('problem-id');
 
         this.unsubscribe = store.subscribe(this.mapStateToThis(store));
+
+        if (this.problemId) {
+            this.getOriginalProblem();
+        }
 	}
+
+    async getOriginalProblem() {
+        const problem = await ProblemModel.getById(this.problemId);
+        
+        this.originalText = problem.text;
+        this.originalCode = problem.code;
+    }
 
 	saveProblem() {
 		Actions.saveEditProblem.execute(this.store, this.problemId, {
-			text: this.text,
-			code: this.code
+			text: this.currentText,
+			code: this.currentCode
 		});
 	}
 
@@ -44,8 +57,8 @@ export class EditProblemComponent {
 
             console.log(state);
 
-            this.text = state.currentEditProblem.text;
-            this.code = state.currentEditProblem.code;
+            this.currentText = state.currentEditProblem.text;
+            this.currentCode = state.currentEditProblem.code;
         };
     }
 

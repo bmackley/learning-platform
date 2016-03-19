@@ -1,15 +1,17 @@
-import {Component, Inject} from 'angular2/core';
+import {Component, Inject, Input} from 'angular2/core';
 import {Constants} from '../../services/constants.service.ts';
 import {Actions} from '../../redux/actions.ts';
 
 @Component({
 	selector: 'sm-ckeditor',
 	template: `
-        <textarea #textTextArea type="text" (keyup)="textChanged(textTextArea.value)" style="height: 500px; width: 500px" placeholder="Enter text here"></textarea>
+        <textarea #textTextArea type="text" (keyup)="textChanged(textTextArea.value)" style="height: 500px; width: 500px" placeholder="Enter text here" [innerHTML]="originalText || ''"></textarea>
     `
 })
 
 export class CkeditorComponent {
+
+    @Input() originalText;
 
     private store;
 
