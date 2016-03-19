@@ -11,11 +11,11 @@ import {Actions} from '../../redux/actions.ts';
 	template: `
         <a [routerLink]="['ViewProblem', { username: 'lastmjs', 'problem-id': problemId }]">View Problem</a>
 
-        <br>
-        <br>
+        <div style="display: flex; flex-direction: row; margin-top: 25px;">
+            <sm-ckeditor [originalText]="originalText" style="flex: 1"></sm-ckeditor>
+            <sm-code-mirror [originalCode]="originalCode" style="flex: 1"></sm-code-mirror>
+        </div>
 
-        <sm-ckeditor [originalText]="originalText"></sm-ckeditor>
-        <sm-code-mirror [originalCode]="originalCode"></sm-code-mirror>
         <button (click)="saveProblem()">Save</button>
     `,
     directives: [CkeditorComponent, CodeMirrorComponent, ROUTER_DIRECTIVES]

@@ -5,7 +5,7 @@ import {Actions} from '../../redux/actions.ts';
 @Component({
 	selector: 'sm-code-mirror',
 	template: `
-        <textarea #codeTextArea type="text" (keyup)="textChanged(codeTextArea.value)" style="height: 500px; width: 500px" placeholder="Enter code here" [innerHTML]="originalCode || ''"></textarea>
+        <textarea #codeTextArea type="text" (keyup)="textChanged(codeTextArea.value)" style="height: 250px; width: 100%" placeholder="Enter code here" [innerHTML]="originalCode || ''"></textarea>
     `
 })
 
