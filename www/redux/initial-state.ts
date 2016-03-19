@@ -1,7 +1,12 @@
 export const InitialState = {
-    currentProblem: {
+    currentViewProblem: {
         text: '',
         code: '',
         answer: ''
+    },
+    currentEditProblem: {
+        id: '',
+        text: '',
+        code: ''
     }
 };

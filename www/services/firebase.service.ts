@@ -5,7 +5,9 @@ export const FirebaseService = {
     },
     push: (path, data) => {
         const ref = new Firebase(`https://resplendent-fire-9351.firebaseio.com/${path}`);
-        ref.push(data);
+        const newId = ref.push(data).key();
+
+        return newId;
     },
     get: async (path) => {
         const ref = new Firebase(`https://resplendent-fire-9351.firebaseio.com/${path}`);

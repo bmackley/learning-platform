@@ -48,5 +48,34 @@ export const Actions = {
                 };
             });
         }
+    },
+    setEditProblemText: {
+        type: 'SET_EDIT_PROBLEM_TEXT',
+        execute: (store, text) => {
+            store.dispatch({
+                type: Actions.setEditProblemText.type,
+                text
+            });
+        }
+    },
+    setEditProblemCode: {
+        type: 'SET_EDIT_PROBLEM_CODE',
+        execute: (store, code) => {
+            store.dispatch({
+                type: Actions.setEditProblemCode.type,
+                code
+            });
+        }
+    },
+    saveEditProblem: {
+        type: 'SAVE_EDIT_PROBLEM',
+        execute: async (store, id, problem) => {
+            const problemId = await ProblemModel.save(id, problem);
+
+            store.dispatch({
+                type: Actions.saveEditProblem.type,
+                problemId
+            });
+        }
     }
 };

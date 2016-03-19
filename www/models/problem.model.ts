@@ -7,10 +7,12 @@ const save = async (id, data) => {
     if (id) {
         const path = problemsPath + id;
         await FirebaseService.set(path, data);
+
+        return id;
     }
     else {
         const path = problemsPath;
-        await FirebaseService.push(path, data);
+        return await FirebaseService.push(path, data);
     }
 };
 
