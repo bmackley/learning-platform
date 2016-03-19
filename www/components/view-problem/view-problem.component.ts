@@ -17,7 +17,7 @@ import {API} from '../../services/api.service.ts';
                 <button class="sm-check-answer-button" (click)="checkAnswer(answerInput.value)">Check</button>
                 <div class="sm-flex-row" style="margin-top: 25px">
                     <button (click)="loadPrevProblem()">Prev</button>
-                    <button (click)="loadNextProblem()" style="margin-left: auto">Next</button>
+                    <button (click)="loadNextProblem(answerInput)" style="margin-left: auto">Next</button>
                 </div>
             </div>
         </div>
@@ -104,8 +104,10 @@ export class ViewProblemComponent implements OnDestroy, OnInit {
         alert('not implemented');
     }
 
-    async loadNextProblem() {
+    async loadNextProblem(answerInput) {
         try {
+            answerInput && (answerInput.value = ''); //TODO horrible!!! Interacting with the DOM directly, find a better way to do this
+
             await Actions.getViewProblem.execute(this.store, this.problemId);
 
             const problemTextComponent = this.injector.get(Constants.PROBLEM_TEXT_COMPONENT);
