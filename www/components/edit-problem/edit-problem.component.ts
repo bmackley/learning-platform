@@ -47,6 +47,9 @@ export class EditProblemComponent {
 
         this.originalText = problem.text;
         this.originalCode = problem.code;
+
+        Actions.setEditProblemText.execute(this.store, this.originalText);
+        Actions.setEditProblemCode.execute(this.store, this.originalCode);
     }
 
 	saveProblem() {
