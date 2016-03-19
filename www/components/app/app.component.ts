@@ -10,9 +10,9 @@ import {EditProblemComponent} from '../edit-problem/edit-problem.component.ts';
 })
 
 @RouteConfig([
-    { path: '/view-problem/:username/:problem-id', component: ViewProblemComponent },
-	{ path: '/edit-problem/:problem-id', component: EditProblemComponent },
-    { path: '/edit-problem', component: EditProblemComponent }
+    { name: 'ViewProblem', path: '/view-problem/:username/:problem-id', component: ViewProblemComponent },
+	{ name: 'EditExistingProblem', path: '/edit-problem/:problem-id', component: EditProblemComponent },
+    { name: 'EditNewProblem', path: '/edit-problem', component: EditProblemComponent }
 ])
 
 export class AppComponent {

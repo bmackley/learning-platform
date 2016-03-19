@@ -1,6 +1,6 @@
 import {Component, Inject} from 'angular2/core';
 import {Constants} from '../../services/constants.service.ts';
-import {RouteParams} from 'angular2/router';
+import {RouteParams, ROUTER_DIRECTIVES} from 'angular2/router';
 import {ProblemModel} from '../../models/problem.model.ts';
 import {CkeditorComponent} from '../ckeditor/ckeditor.component.ts';
 import {CodeMirrorComponent} from '../code-mirror/code-mirror.component.ts';
@@ -9,11 +9,16 @@ import {Actions} from '../../redux/actions.ts';
 @Component({
 	selector: 'edit-problem',
 	template: `
+        <a [routerLink]="['ViewProblem', { username: 'lastmjs', 'problem-id': problemId }]">View Problem</a>
+
+        <br>
+        <br>
+
         <sm-ckeditor [originalText]="originalText"></sm-ckeditor>
         <sm-code-mirror [originalCode]="originalCode"></sm-code-mirror>
         <button (click)="saveProblem()">Save</button>
     `,
-    directives: [CkeditorComponent, CodeMirrorComponent]
+    directives: [CkeditorComponent, CodeMirrorComponent, ROUTER_DIRECTIVES]
 })
 
 export class EditProblemComponent {
@@ -39,7 +44,7 @@ export class EditProblemComponent {
 
     async getOriginalProblem() {
         const problem = await ProblemModel.getById(this.problemId);
-        
+
         this.originalText = problem.text;
         this.originalCode = problem.code;
     }

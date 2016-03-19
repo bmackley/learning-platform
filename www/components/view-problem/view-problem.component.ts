@@ -1,5 +1,5 @@
 import {Component, Inject, OnDestroy, OnInit, Injector, DynamicComponentLoader, ElementRef} from 'angular2/core';
-import {RouteParams} from 'angular2/router';
+import {RouteParams, ROUTER_DIRECTIVES} from 'angular2/router';
 import {ProblemTextComponent} from '../problem-text/problem-text.component.ts';
 import {Constants} from '../../services/constants.service.ts';
 import {Actions} from '../../redux/actions.ts';
@@ -8,6 +8,8 @@ import {API} from '../../services/api.service.ts';
 @Component({
 	selector: 'view-problem',
 	template: `
+        <a [routerLink]="['EditExistingProblem', { 'problem-id': problemId }]">Edit Problem</a>
+
         <div class="sm-flex-row sm-flex-center sm-problem-container">
             <div class="sm-flex-col">
                 <div id="problemTextContainer"></div>
@@ -61,7 +63,7 @@ import {API} from '../../services/api.service.ts';
             }
         </style>
     `,
-    directives: [ProblemTextComponent]
+    directives: [ProblemTextComponent, ROUTER_DIRECTIVES]
 })
 
 export class ViewProblemComponent implements OnDestroy, OnInit {
@@ -122,8 +124,8 @@ export class ViewProblemComponent implements OnDestroy, OnInit {
         return () => {
             const state = store.getState();
 
-            this.text = state.currentProblem.text;
-            this.answer = state.currentProblem.answer;
+            this.text = state.currentViewProblem.text;
+            this.answer = state.currentViewProblem.answer;
         };
     }
 
