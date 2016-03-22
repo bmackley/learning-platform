@@ -1,4 +1,3 @@
-import {Injectable} from 'angular2/core';
 import {FirebaseService} from '../services/firebase.service.ts';
 
 const problemsPath = 'problems/';

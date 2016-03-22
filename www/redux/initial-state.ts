@@ -8,5 +8,9 @@ export const InitialState = {
         id: '',
         text: '',
         code: ''
+    },
+    currentUser: {
+        uid: '',
+        email: ''
     }
 };
