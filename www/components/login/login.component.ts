@@ -9,7 +9,8 @@ import {FirebaseService} from '../../services/firebase.service.ts';
         <div>Log In</div>
         <input #emailInput type="email" placeholder="email">
         <input #passwordInput type="password" placeholder="password">
-        <button (click)="logIn(emailInput.value, passwordInput.value)">Sign Up</button>
+        <button (click)="logIn(emailInput.value, passwordInput.value)">Log In</button>
+        <button (click)="logOut()">Log Out</button>
     `
 })
 
@@ -22,11 +23,14 @@ export class LoginComponent {
     async logIn(email, password) {
         try {
             const authData = await FirebaseService.logInUser(email, password);
-            alert('user logged in successfully: ' + authData.uid);
+            alert('user logged in successfully, uid: ' + authData.uid);
         }
         catch(error) {
-            alert('Error logging user in');
             alert(error);
         }
+    }
+
+    logOut() {
+        FirebaseService.logOutUser();
     }
 }

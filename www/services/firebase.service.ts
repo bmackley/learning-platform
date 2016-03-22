@@ -38,10 +38,22 @@ const logInUser = async (email, password) => {
     return authData;
 };
 
+const logOutUser = () => {
+    const ref = new Firebase(`https://resplendent-fire-9351.firebaseio.com`);
+    ref.unauth();
+};
+
+const isUserLoggedIn = () => {
+    const ref = new Firebase(`https://resplendent-fire-9351.firebaseio.com`);
+    return ref.getAuth();
+};
+
 export const FirebaseService = {
     set,
     push,
     get,
     createUser,
-    logInUser
+    logInUser,
+    logOutUser,
+    isUserLoggedIn
 };

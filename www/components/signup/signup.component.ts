@@ -40,10 +40,9 @@ export class SignupComponent {
 
         try {
             const userData = await FirebaseService.createUser(email, password1);
-            alert('user created successfully: ' + userData.uid);
+            alert('user created successfully, uid: ' + userData.uid);
         }
         catch(error) {
-            alert('Error creating user');
             alert(error);
         }
     }

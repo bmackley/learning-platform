@@ -1,10 +1,11 @@
 import {Component, Inject} from 'angular2/core';
 import {Constants} from '../../services/constants.service.ts';
-import {RouteParams, ROUTER_DIRECTIVES} from 'angular2/router';
+import {RouteParams, Router, ROUTER_DIRECTIVES} from 'angular2/router';
 import {ProblemModel} from '../../models/problem.model.ts';
 import {CkeditorComponent} from '../ckeditor/ckeditor.component.ts';
 import {CodeMirrorComponent} from '../code-mirror/code-mirror.component.ts';
 import {Actions} from '../../redux/actions.ts';
+import {FirebaseService} from '../../services/firebase.service.ts';
 
 @Component({
 	selector: 'edit-problem',
@@ -31,7 +32,12 @@ export class EditProblemComponent {
     private currentCode;
     private unsubscribe;
 
-	constructor(@Inject(Constants.REDUX_STORE) store, routeParams: RouteParams) {
+	constructor(@Inject(Constants.REDUX_STORE) store, routeParams: RouteParams, router: Router) {
+
+        if (!FirebaseService.isUserLoggedIn()) {
+            router.navigate(['Login']);
+        }
+
         this.store = store;
     	this.problemId = routeParams.get('problem-id');
 
@@ -62,8 +68,6 @@ export class EditProblemComponent {
     mapStateToThis(store) {
         return () => {
             const state = store.getState();
-
-            console.log(state);
 
             this.currentText = state.currentEditProblem.text;
             this.currentCode = state.currentEditProblem.code;
