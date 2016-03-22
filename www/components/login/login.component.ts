@@ -1,13 +1,15 @@
 import {Component, Inject} from 'angular2/core';
 import {Constants} from '../../services/constants.service.ts';
 import {Actions} from '../../redux/actions.ts';
+import {FirebaseService} from '../../services/firebase.service.ts';
 
 @Component({
 	selector: 'sm-login',
 	template: `
         <div>Log In</div>
-        <input #emailInput type="text" placeholder="email">
-        <input #passwordInput type="text" placeholder="password">
+        <input #emailInput type="email" placeholder="email">
+        <input #passwordInput type="password" placeholder="password">
+        <button (click)="logIn(emailInput.value, passwordInput.value)">Sign Up</button>
     `
 })
 
@@ -16,4 +18,15 @@ export class LoginComponent {
 	constructor(@Inject(Constants.REDUX_STORE) store) {
 
 	}
+
+    async logIn(email, password) {
+        try {
+            const authData = await FirebaseService.logInUser(email, password);
+            alert('user logged in successfully: ' + authData.uid);
+        }
+        catch(error) {
+            alert('Error logging user in');
+            alert(error);
+        }
+    }
 }
