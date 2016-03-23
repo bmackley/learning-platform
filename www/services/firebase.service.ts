@@ -45,6 +45,9 @@ const logOutUser = () => {
 
 const isUserLoggedIn = () => {
     const ref = new Firebase(`https://resplendent-fire-9351.firebaseio.com`);
+    console.log(ref);
+    console.log(ref.getAuth);
+    console.log(ref.getAuth());
     return ref.getAuth();
 };
 
