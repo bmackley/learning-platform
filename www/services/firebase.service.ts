@@ -51,6 +51,16 @@ const isUserLoggedIn = () => {
     return ref.getAuth();
 };
 
+const setUpListeners = () => {
+    console.log('on auth listener being registered');
+    const ref = new Firebase(`https://resplendent-fire-9351.firebaseio.com`);
+    ref.onAuth(() => {
+        console.log('authentication state changed');
+    });
+};
+
+setUpListeners();
+
 export const FirebaseService = {
     set,
     push,
