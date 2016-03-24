@@ -2,7 +2,8 @@ export const InitialState = {
     currentViewProblem: {
         text: '',
         code: '',
-        answer: ''
+        answer: '',
+        userInputs: []
     },
     currentEditProblem: {
         id: '',

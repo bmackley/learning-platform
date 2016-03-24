@@ -2,6 +2,7 @@ onmessage = function(e) {
 
     const userCode = e.data.userCode;
     const userVariables = e.data.userVariables;
+    const userInputs = e.data.userInputs;
 
     const generateRandomInteger = (min, max) => {
         //returns a random integer between min (included) and max (included)
@@ -39,13 +40,24 @@ onmessage = function(e) {
         return `${prev} var ${curr} = new Proxy(${curr}_orig_object, handler);`;
     }, '');
 
+    let answer = {};
+
     eval(createUserVariableObjects);
     eval(createProxies);
     eval(userCode);
 
-    if (typeof answer !== 'string' && typeof answer !== 'number') {
-        //the answer is probably still a proxy object. It must be converted to its value
-        answer = +answer;
+    let convertedToPrimitivesAnswer = userInputs.reduce((prev, curr) => {
+        if (typeof prev[curr].value === 'function') {
+            return Object.assign({}, prev, {
+                [curr]: prev[curr].value()
+            });
+        }
+
+        return prev;
+    }, answer);
+
+    if (typeof convertedToPrimitivesAnswer.value === 'function') {
+        convertedToPrimitivesAnswer = convertedToPrimitivesAnswer.value();
     }
 
     const userVariableValues = userVariables.map((element) => {
@@ -64,7 +76,7 @@ onmessage = function(e) {
     });
 
     postMessage({
-        answer,
+        answer: convertedToPrimitivesAnswer,
         userVariableValues
     }); //TODO There is a second parameter to postMessage that I might need to add here in the future. The second parameter specifies the domain that can receive the message
 };

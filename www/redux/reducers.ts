@@ -9,7 +9,8 @@ export function rootReducer(state = InitialState, action) {
             newState.currentViewProblem = {
                 text: action.text,
                 code: action.code,
-                answer: action.answer
+                answer: action.answer,
+                userInputs: action.userInputs
             };
 
             return newState;

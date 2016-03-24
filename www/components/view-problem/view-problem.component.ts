@@ -13,8 +13,8 @@ import {API} from '../../services/api.service.ts';
         <div class="sm-flex-row sm-flex-center sm-problem-container">
             <div class="sm-flex-col">
                 <div id="problemTextContainer"></div>
-                <input #answerInput type="text" placeholder="type answer" class="sm-answer-input">
-                <button class="sm-check-answer-button" (click)="checkAnswer(answerInput.value)">Check</button>
+                <!--<input #answerInput type="text" placeholder="type answer" class="sm-answer-input">-->
+                <button class="sm-check-answer-button" (click)="checkAnswer()">Check</button>
                 <div class="sm-flex-row" style="margin-top: 25px">
                     <button (click)="loadPrevProblem()">Prev</button>
                     <button (click)="loadNextProblem(answerInput)" style="margin-left: auto">Next</button>
@@ -78,6 +78,7 @@ export class ViewProblemComponent implements OnDestroy, OnInit {
     private injector;
     private dcl;
     private elementRef;
+    private userInputs;
 
 	constructor(@Inject(Constants.REDUX_STORE) store, routeParams: RouteParams, injector: Injector, dcl: DynamicComponentLoader, elementRef: ElementRef) {
         this.store = store;
@@ -90,14 +91,41 @@ export class ViewProblemComponent implements OnDestroy, OnInit {
         this.unsubscribe = store.subscribe(this.mapStateToThis(store));
 	}
 
-    checkAnswer(studentAnswer) {
+    checkAnswer() {
 
-        if (this.answer.toLowerCase() === studentAnswer.toLowerCase()) {
-            API.answerAttempt(this.problemId, true, this.text, this.answer, studentAnswer);
+        if (typeof this.answer !== 'object') {
+            // if (this.answer.toString().toLowerCase() === studentAnswer.toLowerCase()) {
+            //     API.answerAttempt(this.problemId, true, this.text, this.answer, studentAnswer);
+            // }
+            // else {
+            //     API.answerAttempt(this.problemId, false, this.text, this.answer, studentAnswer);
+            // }
         }
         else {
-            API.answerAttempt(this.problemId, false, this.text, this.answer, studentAnswer);
+            const userAnswers = {};
+            const correct = this.userInputs.reduce((prev, curr) => {
+                const userInputElement = document.getElementById(curr);
+                const userAnswer = userInputElement.textContent;
+
+                userAnswers[curr] = userAnswer;
+
+                if (this.answer[curr].toString().toLowerCase() === userAnswer.toLowerCase()) {
+                    return prev;
+                }
+                else {
+                    return false;
+                }
+            }, true);
+
+            if (correct) {
+                API.answerAttempt(this.problemId, true, this.text, this.answer, userAnswers);
+            }
+            else {
+                API.answerAttempt(this.problemId, false, this.text, this.answer, userAnswers);
+            }
         }
+
+
     }
 
     loadPrevProblem() {
@@ -128,6 +156,7 @@ export class ViewProblemComponent implements OnDestroy, OnInit {
 
             this.text = state.currentViewProblem.text;
             this.answer = state.currentViewProblem.answer;
+            this.userInputs = state.currentViewProblem.userInputs;
         };
     }
 

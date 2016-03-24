@@ -32,17 +32,16 @@ export const Actions = {
                 const userVariables = retrieveUserVariables([]);
                 const userInputs = retrieveUserInputs([]);
 
-                console.log(userInputs);
-
                 const problemWorker = new Worker('services/problem-worker.service.ts');
                 problemWorker.postMessage({
                     userVariables,
+                    userInputs,
                     userCode: problem.code
                 });
 
                 problemWorker.onmessage = (e) => {
                     const result = e.data;
-                    const answer = result.answer.toString();
+                    const answer = result.answer;
                     const userVariableValues = result.userVariableValues;
 
                     const userVariableReplacedText = userVariableValues.reduce((prev, curr) => {
@@ -51,9 +50,7 @@ export const Actions = {
                     }, problem.text);
 
                     const userInputReplacedText = userInputs.reduce((prev, curr) => {
-                        console.log(prev);
                         const re = new RegExp(`\\[\\[${curr}\\]\\]`);
-                        console.log(re);
                         return prev.replace(re, `
                             <span id="${curr}" contenteditable="true" class="user-input"></span>
                             <style>
@@ -71,7 +68,8 @@ export const Actions = {
                         type: Actions.getViewProblem.type,
                         text: userInputReplacedText,
                         code: problem.code,
-                        answer
+                        answer,
+                        userInputs
                     });
 
                     resolve();
