@@ -4,7 +4,7 @@ import {SpinnerComponent} from '../spinner/spinner.component.ts';
 @Component({
 	selector: 'sm-problem-text',
 	template: `
-        <div class="sm-problem-text" [hidden]="hideText">{{text}}</div>
+        <div class="sm-problem-text" [hidden]="hideText" [innerHTML]="text"></div>
 
         <!--<div class="sm-flex-row sm-flex-center" [hidden]="!hideText">
             <sm-spinner></sm-spinner>
