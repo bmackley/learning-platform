@@ -35,8 +35,14 @@ export class EditProblemComponent {
 
 	constructor(@Inject(Constants.REDUX_STORE) store, routeParams: RouteParams, router: Router) {
 
-        if (!FirebaseService.isUserLoggedIn()) {
+        //TODO put this in an action of its own
+        const authData = FirebaseService.isUserLoggedIn();
+
+        if (!authData) {
             router.navigate(['Login']);
+        }
+        else {
+            Actions.setCurrentUser.execute(store, authData.uid, authData.password.email);
         }
 
         this.store = store;
