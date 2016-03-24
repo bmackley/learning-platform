@@ -7,10 +7,9 @@ export const Actions = {
             return new Promise(async function(resolve, reject) {
                 const problem = await ProblemModel.getById(problemId);
 
-                const re = /{{(.*?)}}/g;
+                const reUserVariables = /{{(.*?)}}/g;
                 const retrieveUserVariables = (matches) => {
-
-                    const match = re.exec(problem.text);
+                    const match = reUserVariables.exec(problem.text);
 
                     if (!match) {
                         return matches;
@@ -19,7 +18,21 @@ export const Actions = {
                     return retrieveUserVariables([...matches, match[1]]);
                 };
 
+                const reUserInputs = /\[\[(.*?)\]\]/g;
+                const retrieveUserInputs = (matches) => {
+                    const match = reUserInputs.exec(problem.text);
+
+                    if (!match) {
+                        return matches;
+                    }
+
+                    return retrieveUserInputs([...matches, match[1]]);
+                };
+
                 const userVariables = retrieveUserVariables([]);
+                const userInputs = retrieveUserInputs([]);
+
+                console.log(userInputs);
 
                 const problemWorker = new Worker('services/problem-worker.service.ts');
                 problemWorker.postMessage({
@@ -32,14 +45,31 @@ export const Actions = {
                     const answer = result.answer.toString();
                     const userVariableValues = result.userVariableValues;
 
-                    const text = userVariableValues.reduce((prev, curr) => {
+                    const userVariableReplacedText = userVariableValues.reduce((prev, curr) => {
                         const re = new RegExp(`{{${curr.name}}}`);
                         return prev.replace(re, curr.value);
                     }, problem.text);
 
+                    const userInputReplacedText = userInputs.reduce((prev, curr) => {
+                        console.log(prev);
+                        const re = new RegExp(`\\[\\[${curr}\\]\\]`);
+                        console.log(re);
+                        return prev.replace(re, `
+                            <span id="${curr}" contenteditable="true" class="user-input"></span>
+                            <style>
+                                .user-input {
+                                    display: inline-block;
+                                    min-width: 25px;
+                                    padding: 5px;
+                                    box-shadow: 0px 0px 1px black;
+                                }
+                            </style>
+                        `);
+                    }, userVariableReplacedText);
+
                     store.dispatch({
                         type: Actions.getViewProblem.type,
-                        text,
+                        text: userInputReplacedText,
                         code: problem.code,
                         answer
                     });
