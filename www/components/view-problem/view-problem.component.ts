@@ -13,8 +13,8 @@ import {API} from '../../services/api.service.ts';
         <div class="sm-flex-row sm-flex-center sm-problem-container">
             <div class="sm-flex-col">
                 <div id="problemTextContainer"></div>
-                <!--<input #answerInput type="text" placeholder="type answer" class="sm-answer-input">-->
-                <button class="sm-check-answer-button" (click)="checkAnswer()">Check</button>
+                <input #defaultAnswerInput type="text" placeholder="type answer" class="sm-answer-input" [hidden]="!userInputs || userInputs.length > 0">
+                <button class="sm-check-answer-button" (click)="checkAnswer(defaultAnswerInput.value)">Check</button>
                 <div class="sm-flex-row" style="margin-top: 25px">
                     <button (click)="loadPrevProblem()">Prev</button>
                     <button (click)="loadNextProblem(answerInput)" style="margin-left: auto">Next</button>
@@ -71,6 +71,7 @@ export class ViewProblemComponent implements OnDestroy, OnInit {
 	public text: string;
 	public code: string;
     public answer;
+    public userInputs;
 
     private store;
     private unsubscribe;
@@ -78,7 +79,6 @@ export class ViewProblemComponent implements OnDestroy, OnInit {
     private injector;
     private dcl;
     private elementRef;
-    private userInputs;
 
 	constructor(@Inject(Constants.REDUX_STORE) store, routeParams: RouteParams, injector: Injector, dcl: DynamicComponentLoader, elementRef: ElementRef) {
         this.store = store;
@@ -91,15 +91,15 @@ export class ViewProblemComponent implements OnDestroy, OnInit {
         this.unsubscribe = store.subscribe(this.mapStateToThis(store));
 	}
 
-    checkAnswer() {
+    checkAnswer(defaultAnswerInputValue) {
 
         if (typeof this.answer !== 'object') {
-            // if (this.answer.toString().toLowerCase() === studentAnswer.toLowerCase()) {
-            //     API.answerAttempt(this.problemId, true, this.text, this.answer, studentAnswer);
-            // }
-            // else {
-            //     API.answerAttempt(this.problemId, false, this.text, this.answer, studentAnswer);
-            // }
+            if (this.answer.toString().toLowerCase() === defaultAnswerInputValue.toLowerCase()) {
+                API.answerAttempt(this.problemId, true, this.text, this.answer, defaultAnswerInputValue);
+            }
+            else {
+                API.answerAttempt(this.problemId, false, this.text, this.answer, defaultAnswerInputValue);
+            }
         }
         else {
             const userAnswers = {};
