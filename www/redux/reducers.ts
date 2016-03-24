@@ -10,7 +10,8 @@ export function rootReducer(state = InitialState, action) {
                 text: action.text,
                 code: action.code,
                 answer: action.answer,
-                userInputs: action.userInputs
+                userInputs: action.userInputs,
+                userCheckboxes: action.userCheckboxes
             };
 
             return newState;

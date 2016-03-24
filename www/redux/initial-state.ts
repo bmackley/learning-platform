@@ -3,7 +3,8 @@ export const InitialState = {
         text: '',
         code: '',
         answer: '',
-        userInputs: []
+        userInputs: [],
+        userCheckboxes: []
     },
     currentEditProblem: {
         id: '',

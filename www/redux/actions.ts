@@ -29,8 +29,20 @@ export const Actions = {
                     return retrieveUserInputs([...matches, match[1]]);
                 };
 
+                const reUserCheckboxes = /\[x\](.*?)\[x\]/g;
+                const retrieveUserCheckboxes = (matches) => {
+                    const match = reUserCheckboxes.exec(problem.text);
+
+                    if (!match) {
+                        return matches;
+                    }
+
+                    return retrieveUserCheckboxes([...matches, match[1]]);
+                };
+
                 const userVariables = retrieveUserVariables([]);
                 const userInputs = retrieveUserInputs([]);
+                const userCheckboxes = retrieveUserCheckboxes([]);
 
                 const problemWorker = new Worker('services/problem-worker.service.ts');
                 problemWorker.postMessage({
@@ -64,12 +76,21 @@ export const Actions = {
                         `);
                     }, userVariableReplacedText);
 
+                    const userCheckboxReplacedText = userCheckboxes.reduce((prev, curr) => {
+                        const re = new RegExp(`\\[x\\]${curr}\\[x\\]`);
+                        return prev.replace(re, `
+                            <br>
+                            <input id="${curr}" type="checkbox">
+                        `);
+                    }, userInputReplacedText);
+
                     store.dispatch({
                         type: Actions.getViewProblem.type,
-                        text: userInputReplacedText,
+                        text: userCheckboxReplacedText,
                         code: problem.code,
                         answer,
-                        userInputs
+                        userInputs,
+                        userCheckboxes
                     });
 
                     resolve();

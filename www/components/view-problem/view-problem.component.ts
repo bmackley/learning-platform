@@ -13,7 +13,7 @@ import {API} from '../../services/api.service.ts';
         <div class="sm-flex-row sm-flex-center sm-problem-container">
             <div class="sm-flex-col">
                 <div id="problemTextContainer"></div>
-                <input #defaultAnswerInput type="text" placeholder="type answer" class="sm-answer-input" [hidden]="!userInputs || userInputs.length > 0">
+                <input #defaultAnswerInput type="text" placeholder="type answer" class="sm-answer-input" [hidden]="!userInputs || userInputs.length > 0 || !userCheckboxes || userCheckboxes.length > 0">
                 <button class="sm-check-answer-button" (click)="checkAnswer(defaultAnswerInput.value)">Check</button>
                 <div class="sm-flex-row" style="margin-top: 25px">
                     <button (click)="loadPrevProblem()">Prev</button>
@@ -72,6 +72,7 @@ export class ViewProblemComponent implements OnDestroy, OnInit {
 	public code: string;
     public answer;
     public userInputs;
+    public userCheckboxes;
 
     private store;
     private unsubscribe;
@@ -103,7 +104,7 @@ export class ViewProblemComponent implements OnDestroy, OnInit {
         }
         else {
             const userAnswers = {};
-            const correct = this.userInputs.reduce((prev, curr) => {
+            const inputsCorrect = this.userInputs.reduce((prev, curr) => {
                 const userInputElement = document.getElementById(curr);
                 const userAnswer = userInputElement.textContent;
 
@@ -117,7 +118,21 @@ export class ViewProblemComponent implements OnDestroy, OnInit {
                 }
             }, true);
 
-            if (correct) {
+            const checkboxesCorrect = this.userCheckboxes.reduce((prev, curr) => {
+                const userCheckboxElement = document.getElementById(curr);
+                const userAnswer = userCheckboxElement.checked;
+
+                userAnswers[curr] = userAnswer;
+
+                if (this.answer[curr] === userAnswer) {
+                    return prev;
+                }
+                else {
+                    return false;
+                }
+            }, true);
+
+            if (inputsCorrect && checkboxesCorrect) {
                 API.answerAttempt(this.problemId, true, this.text, this.answer, userAnswers);
             }
             else {
@@ -157,6 +172,7 @@ export class ViewProblemComponent implements OnDestroy, OnInit {
             this.text = state.currentViewProblem.text;
             this.answer = state.currentViewProblem.answer;
             this.userInputs = state.currentViewProblem.userInputs;
+            this.userCheckboxes = state.currentViewProblem.userCheckboxes;
         };
     }
 
