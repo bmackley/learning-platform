@@ -31,6 +31,7 @@ export class EditProblemComponent {
     private currentText;
     private currentCode;
     private unsubscribe;
+    private currentUser;
 
 	constructor(@Inject(Constants.REDUX_STORE) store, routeParams: RouteParams, router: Router) {
 
@@ -60,7 +61,8 @@ export class EditProblemComponent {
 
 	saveProblem() {
 		Actions.saveEditProblem.execute(this.store, this.problemId, {
-			text: this.currentText,
+            uid: this.currentUser.uid,
+            text: this.currentText,
 			code: this.currentCode
 		});
 	}
@@ -71,6 +73,7 @@ export class EditProblemComponent {
 
             this.currentText = state.currentEditProblem.text;
             this.currentCode = state.currentEditProblem.code;
+            this.currentUser = state.currentUser;
         };
     }
 

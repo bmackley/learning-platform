@@ -36,6 +36,16 @@ export function rootReducer(state = InitialState, action) {
 
             return newState;
         }
+        case Actions.setCurrentUser.type: {
+            const newState = Object.assign({}, state);
+
+            newState.currentUser = {
+                uid: action.uid,
+                email: action.email
+            };
+
+            return newState;
+        }
         default: {
             return state;
         }

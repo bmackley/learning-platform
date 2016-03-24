@@ -105,5 +105,15 @@ export const Actions = {
                 problemId
             });
         }
+    },
+    setCurrentUser: {
+        type: 'SET_CURRENT_USER',
+        execute: (store, uid, email) => {
+            store.dispatch({
+                type: Actions.setCurrentUser.type,
+                uid,
+                email
+            })
+        }
     }
 };

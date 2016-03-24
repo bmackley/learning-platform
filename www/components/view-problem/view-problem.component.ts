@@ -17,7 +17,7 @@ import {API} from '../../services/api.service.ts';
                 <button class="sm-check-answer-button" (click)="checkAnswer(defaultAnswerInput.value)">Check</button>
                 <div class="sm-flex-row" style="margin-top: 25px">
                     <button (click)="loadPrevProblem()">Prev</button>
-                    <button (click)="loadNextProblem(answerInput)" style="margin-left: auto">Next</button>
+                    <button (click)="loadNextProblem(defaultAnswerInput)" style="margin-left: auto">Next</button>
                 </div>
             </div>
         </div>

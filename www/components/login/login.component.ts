@@ -16,13 +16,16 @@ import {FirebaseService} from '../../services/firebase.service.ts';
 
 export class LoginComponent {
 
-	constructor(@Inject(Constants.REDUX_STORE) store) {
+    private store;
 
+	constructor(@Inject(Constants.REDUX_STORE) store) {
+        this.store = store;
 	}
 
     async logIn(email, password) {
         try {
             const authData = await FirebaseService.logInUser(email, password);
+            Actions.setCurrentUser.execute(this.store, authData.uid, email);
             alert('user logged in successfully, uid: ' + authData.uid);
         }
         catch(error) {
@@ -32,5 +35,6 @@ export class LoginComponent {
 
     logOut() {
         FirebaseService.logOutUser();
+        alert('user logged out successfully');
     }
 }
