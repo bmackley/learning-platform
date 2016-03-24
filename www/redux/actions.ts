@@ -40,9 +40,23 @@ export const Actions = {
                     return retrieveUserCheckboxes([...matches, match[1]]);
                 };
 
+                const reUserRadios = /\[\*\](.*?)\[\*\]/g;
+                const retrieveUserRadios = (matches) => {
+                    const match = reUserRadios.exec(problem.text);
+
+                    if (!match) {
+                        return matches;
+                    }
+
+                    return retrieveUserRadios([...matches, match[1]]);
+                };
+
                 const userVariables = retrieveUserVariables([]);
                 const userInputs = retrieveUserInputs([]);
                 const userCheckboxes = retrieveUserCheckboxes([]);
+                const userRadios = retrieveUserRadios([]);
+
+                console.log(userRadios);
 
                 const problemWorker = new Worker('services/problem-worker.service.ts');
                 problemWorker.postMessage({
@@ -84,13 +98,22 @@ export const Actions = {
                         `);
                     }, userInputReplacedText);
 
+                    const userRadioReplacedText = userRadios.reduce((prev, curr) => {
+                        const re = new RegExp(`\\[\\*\\]${curr}\\[\\*\\]`);
+                        return prev.replace(re, `
+                            <br>
+                            <input id="${curr}" type="radio" name="this-might-break-if-the-user-has-more-than-one-group">
+                        `);
+                    }, userCheckboxReplacedText);
+
                     store.dispatch({
                         type: Actions.getViewProblem.type,
-                        text: userCheckboxReplacedText,
+                        text: userRadioReplacedText,
                         code: problem.code,
                         answer,
                         userInputs,
-                        userCheckboxes
+                        userCheckboxes,
+                        userRadios
                     });
 
                     resolve();

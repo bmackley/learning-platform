@@ -13,7 +13,7 @@ import {API} from '../../services/api.service.ts';
         <div class="sm-flex-row sm-flex-center sm-problem-container">
             <div class="sm-flex-col">
                 <div id="problemTextContainer"></div>
-                <input #defaultAnswerInput type="text" placeholder="type answer" class="sm-answer-input" [hidden]="!userInputs || userInputs.length > 0 || !userCheckboxes || userCheckboxes.length > 0">
+                <input #defaultAnswerInput type="text" placeholder="type answer" class="sm-answer-input" [hidden]="!userInputs || userInputs.length > 0 || !userCheckboxes || userCheckboxes.length > 0 || !userRadios || userRadios.length > 0">
                 <button class="sm-check-answer-button" (click)="checkAnswer(defaultAnswerInput.value)">Check</button>
                 <div class="sm-flex-row" style="margin-top: 25px">
                     <button (click)="loadPrevProblem()">Prev</button>
@@ -73,6 +73,7 @@ export class ViewProblemComponent implements OnDestroy, OnInit {
     public answer;
     public userInputs;
     public userCheckboxes;
+    public userRadios;
 
     private store;
     private unsubscribe;
@@ -132,7 +133,21 @@ export class ViewProblemComponent implements OnDestroy, OnInit {
                 }
             }, true);
 
-            if (inputsCorrect && checkboxesCorrect) {
+            const radiosCorrect = this.userRadios.reduce((prev, curr) => {
+                const userRadioElement = document.getElementById(curr);
+                const userAnswer = userRadioElement.checked;
+
+                userAnswers[curr] = userAnswer;
+
+                if (this.answer[curr] === userAnswer) {
+                    return prev;
+                }
+                else {
+                    return false;
+                }
+            }, true);
+
+            if (inputsCorrect && checkboxesCorrect && radiosCorrect) {
                 API.answerAttempt(this.problemId, true, this.text, this.answer, userAnswers);
             }
             else {
@@ -173,6 +188,7 @@ export class ViewProblemComponent implements OnDestroy, OnInit {
             this.answer = state.currentViewProblem.answer;
             this.userInputs = state.currentViewProblem.userInputs;
             this.userCheckboxes = state.currentViewProblem.userCheckboxes;
+            this.userRadios = state.currentViewProblem.userRadios;
         };
     }
 

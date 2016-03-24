@@ -11,7 +11,8 @@ export function rootReducer(state = InitialState, action) {
                 code: action.code,
                 answer: action.answer,
                 userInputs: action.userInputs,
-                userCheckboxes: action.userCheckboxes
+                userCheckboxes: action.userCheckboxes,
+                userRadios: action.userRadios
             };
 
             return newState;

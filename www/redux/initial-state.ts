@@ -4,7 +4,8 @@ export const InitialState = {
         code: '',
         answer: '',
         userInputs: [],
-        userCheckboxes: []
+        userCheckboxes: [],
+        userRadios: []
     },
     currentEditProblem: {
         id: '',
