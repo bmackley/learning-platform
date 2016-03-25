@@ -13,7 +13,7 @@ import {FirebaseService} from '../../services/firebase.service.ts';
 
         <div class="sm-flex-row sm-flex-center sm-problem-container">
             <div class="sm-flex-col" style="height: 100%">
-                <div style="overflow-y: scroll; flex: 2">
+                <div style="overflow-y: auto; flex: 2">
                     <div id="problemTextContainer"></div>
                 </div>
 
@@ -36,9 +36,10 @@ import {FirebaseService} from '../../services/firebase.service.ts';
 
             .sm-problem-container {
                 margin-top: 10vh;
+                margin-bottom: 10vh;
                 margin-left: 5vw;
                 margin-right: 5vw;
-                height: 100vh;
+                height: 80vh;
             }
 
             .sm-problem-text {
