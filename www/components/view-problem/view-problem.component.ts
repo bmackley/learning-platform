@@ -12,14 +12,22 @@ import {FirebaseService} from '../../services/firebase.service.ts';
         <a [routerLink]="['EditExistingProblem', { 'problem-id': problemId }]" [hidden]="!currentUser || currentUser.uid !== problemUid">Edit Problem</a>
 
         <div class="sm-flex-row sm-flex-center sm-problem-container">
-            <div class="sm-flex-col">
-                <div id="problemTextContainer"></div>
-                <input #defaultAnswerInput type="text" placeholder="type answer" class="sm-answer-input" [hidden]="!userInputs || userInputs.length > 0 || !userCheckboxes || userCheckboxes.length > 0 || !userRadios || userRadios.length > 0">
-                <button class="sm-check-answer-button" (click)="checkAnswer(defaultAnswerInput.value)">Check</button>
-                <div class="sm-flex-row" style="margin-top: 25px">
-                    <button (click)="loadPrevProblem()">Prev</button>
-                    <button (click)="loadNextProblem(defaultAnswerInput)" style="margin-left: auto">Next</button>
+            <div class="sm-flex-col" style="height: 100%">
+                <div style="overflow-y: scroll; flex: 2">
+                    <div id="problemTextContainer"></div>
                 </div>
+
+                <div style="flex: 1">
+                    <div class="sm-flex-col">
+                        <input #defaultAnswerInput type="text" placeholder="type answer" class="sm-answer-input" [hidden]="!userInputs || userInputs.length > 0 || !userCheckboxes || userCheckboxes.length > 0 || !userRadios || userRadios.length > 0">
+                        <button class="sm-check-answer-button" (click)="checkAnswer(defaultAnswerInput.value)">Check</button>
+                        <div class="sm-flex-row" style="margin-top: 25px;">
+                            <button (click)="loadPrevProblem()">Prev</button>
+                            <button (click)="loadNextProblem(defaultAnswerInput)" style="margin-left: auto">Next</button>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
 
@@ -30,6 +38,7 @@ import {FirebaseService} from '../../services/firebase.service.ts';
                 margin-top: 10vh;
                 margin-left: 5vw;
                 margin-right: 5vw;
+                height: 100vh;
             }
 
             .sm-problem-text {
