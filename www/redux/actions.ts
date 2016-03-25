@@ -91,7 +91,6 @@ export const Actions = {
                     const userCheckboxReplacedText = userCheckboxes.reduce((prev, curr) => {
                         const re = new RegExp(`\\[x\\]${curr}\\[x\\]`);
                         return prev.replace(re, `
-                            <br>
                             <input id="${curr}" type="checkbox">
                         `);
                     }, userInputReplacedText);
@@ -99,7 +98,6 @@ export const Actions = {
                     const userRadioReplacedText = userRadios.reduce((prev, curr) => {
                         const re = new RegExp(`\\[\\*\\]${curr}\\[\\*\\]`);
                         return prev.replace(re, `
-                            <br>
                             <input id="${curr}" type="radio" name="this-might-break-if-the-user-has-more-than-one-group">
                         `);
                     }, userCheckboxReplacedText);
