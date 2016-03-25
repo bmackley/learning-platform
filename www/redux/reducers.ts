@@ -7,6 +7,7 @@ export function rootReducer(state = InitialState, action) {
             const newState = Object.assign({}, state);
 
             newState.currentViewProblem = {
+                uid: action.uid,
                 text: action.text,
                 code: action.code,
                 answer: action.answer,

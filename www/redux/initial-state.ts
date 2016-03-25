@@ -1,5 +1,6 @@
 export const InitialState = {
     currentViewProblem: {
+        uid: '',
         text: '',
         code: '',
         answer: '',

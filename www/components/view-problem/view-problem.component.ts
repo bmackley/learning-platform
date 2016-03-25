@@ -4,11 +4,12 @@ import {ProblemTextComponent} from '../problem-text/problem-text.component.ts';
 import {Constants} from '../../services/constants.service.ts';
 import {Actions} from '../../redux/actions.ts';
 import {API} from '../../services/api.service.ts';
+import {FirebaseService} from '../../services/firebase.service.ts';
 
 @Component({
 	selector: 'view-problem',
 	template: `
-        <a [routerLink]="['EditExistingProblem', { 'problem-id': problemId }]">Edit Problem</a>
+        <a [routerLink]="['EditExistingProblem', { 'problem-id': problemId }]" [hidden]="!currentUser || currentUser.uid !== problemUid">Edit Problem</a>
 
         <div class="sm-flex-row sm-flex-center sm-problem-container">
             <div class="sm-flex-col">
@@ -74,6 +75,8 @@ export class ViewProblemComponent implements OnDestroy, OnInit {
     public userInputs;
     public userCheckboxes;
     public userRadios;
+    public problemUid;
+    public currentUser;
 
     private store;
     private unsubscribe;
@@ -91,6 +94,13 @@ export class ViewProblemComponent implements OnDestroy, OnInit {
         this.problemId = routeParams.get('problem-id');
 
         this.unsubscribe = store.subscribe(this.mapStateToThis(store));
+
+        //TODO put this in an action of its own
+        const authData = FirebaseService.isUserLoggedIn();
+
+        if (authData) {
+            Actions.setCurrentUser.execute(store, authData.uid, authData.password.email);
+        }
 	}
 
     checkAnswer(defaultAnswerInputValue) {
@@ -184,11 +194,13 @@ export class ViewProblemComponent implements OnDestroy, OnInit {
         return () => {
             const state = store.getState();
 
+            this.problemUid = state.currentViewProblem.uid;
             this.text = state.currentViewProblem.text;
             this.answer = state.currentViewProblem.answer;
             this.userInputs = state.currentViewProblem.userInputs;
             this.userCheckboxes = state.currentViewProblem.userCheckboxes;
             this.userRadios = state.currentViewProblem.userRadios;
+            this.currentUser = state.currentUser;
         };
     }
 

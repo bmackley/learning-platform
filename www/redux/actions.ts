@@ -56,8 +56,6 @@ export const Actions = {
                 const userCheckboxes = retrieveUserCheckboxes([]);
                 const userRadios = retrieveUserRadios([]);
 
-                console.log(userRadios);
-
                 const problemWorker = new Worker('services/problem-worker.service.ts');
                 problemWorker.postMessage({
                     userVariables,
@@ -108,6 +106,7 @@ export const Actions = {
 
                     store.dispatch({
                         type: Actions.getViewProblem.type,
+                        uid: problem.uid,
                         text: userRadioReplacedText,
                         code: problem.code,
                         answer,
