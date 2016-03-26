@@ -5,7 +5,6 @@ import {Actions} from '../../redux/actions.ts';
 @Component({
 	selector: 'sm-ckeditor',
 	template: `
-        <!--<textarea id="sm-ckeditor-textarea" #textTextArea type="text" (keyup)="textChanged(textTextArea.value)" style="height: 250px; width: 100%" placeholder="Enter text here" [innerHTML]="originalText || ''"></textarea>-->
         <textarea id="sm-ckeditor-textarea"></textarea>
     `
 })

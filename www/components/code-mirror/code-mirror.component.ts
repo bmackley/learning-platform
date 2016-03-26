@@ -23,13 +23,15 @@ export class CodeMirrorComponent {
 
     initCodeMirror() {
         const codeMirrorTextarea = document.getElementById('sm-code-mirror-textarea');
-        this.codeMirrorInstance = CodeMirror(function(elt) {
-            codeMirrorTextarea.parentNode.replaceChild(elt, codeMirrorTextarea);
-        }, {
+
+        this.codeMirrorInstance = CodeMirror.fromTextArea(codeMirrorTextarea, {
             mode: 'javascript',
             lineNumbers: true,
             gutters: ['CodeMirror-lint-markers'],
-            lint: true
+            lint: true,
+            indentUnit: 4,
+            tabSize: 4,
+            indentWithTabs: true
         });
 
         this.codeMirrorInstance.on('change', (e) => {
