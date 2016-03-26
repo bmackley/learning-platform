@@ -12,12 +12,22 @@ import {FirebaseService} from '../../services/firebase.service.ts';
 	template: `
         <a [routerLink]="['ViewProblem', { username: 'lastmjs', 'problem-id': problemId }]">View Problem</a>
 
-        <div style="display: flex; flex-direction: row; margin-top: 25px;">
-            <sm-ckeditor [originalText]="originalText" style="flex: 1; margin-right: 25px"></sm-ckeditor>
-            <sm-code-mirror [originalCode]="originalCode" style="flex: 1"></sm-code-mirror>
+        <div class="sm-editor-container" style="display: flex; flex-direction: column">
+            <sm-ckeditor [originalText]="originalText"></sm-ckeditor>
+            <sm-code-mirror [originalCode]="originalCode" style="margin-top: 25px"></sm-code-mirror>
         </div>
 
         <button (click)="saveProblem()">Save</button>
+
+        <style>
+            .sm-editor-container {
+                /*TODO: this is the same exact class as sm-problem-code*/
+                margin-top: 10vh;
+                margin-bottom: 10vh;
+                margin-left: 5vw;
+                margin-right: 5vw;
+            }
+        </style>
     `,
     directives: [CkeditorComponent, CodeMirrorComponent, ROUTER_DIRECTIVES]
 })

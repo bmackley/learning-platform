@@ -28,6 +28,7 @@ export class CkeditorComponent implements OnChanges, OnDestroy, OnInit {
         });
 
         CKEDITOR.replace('sm-ckeditor-textarea');
+        CKEDITOR.config.height = 300;
     }
 
     textChanged(value) {
