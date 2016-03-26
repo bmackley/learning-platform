@@ -98,7 +98,6 @@ export class ViewProblemComponent implements OnDestroy, OnInit {
         this.injector = injector;
         this.dcl = dcl;
         this.elementRef = elementRef;
-        const username = routeParams.get('username');
         this.problemId = routeParams.get('problem-id');
 
         this.unsubscribe = store.subscribe(this.mapStateToThis(store));

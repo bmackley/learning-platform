@@ -12,7 +12,7 @@ import {SignupComponent} from '../signup/signup.component.ts';
 })
 
 @RouteConfig([
-    { name: 'ViewProblem', path: '/view-problem/:username/:problem-id', component: ViewProblemComponent },
+    { name: 'ViewProblem', path: '/view-problem/:problem-id', component: ViewProblemComponent },
 	{ name: 'EditExistingProblem', path: '/edit-problem/:problem-id', component: EditProblemComponent },
     { name: 'EditNewProblem', path: '/edit-problem', component: EditProblemComponent },
     { name: 'Signup', path: '/signup', component: SignupComponent },
