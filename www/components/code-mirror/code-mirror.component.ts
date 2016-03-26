@@ -27,7 +27,9 @@ export class CodeMirrorComponent {
             codeMirrorTextarea.parentNode.replaceChild(elt, codeMirrorTextarea);
         }, {
             mode: 'javascript',
-            lineNumbers: true
+            lineNumbers: true,
+            gutters: ['CodeMirror-lint-markers'],
+            lint: true
         });
 
         this.codeMirrorInstance.on('change', (e) => {
