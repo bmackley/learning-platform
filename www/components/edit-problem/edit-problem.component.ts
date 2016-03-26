@@ -14,7 +14,7 @@ import {FirebaseService} from '../../services/firebase.service.ts';
 
         <div class="sm-editor-container" style="display: flex; flex-direction: column">
             <sm-ckeditor [originalText]="originalText"></sm-ckeditor>
-            <sm-code-mirror [originalCode]="originalCode" style="margin-top: 25px"></sm-code-mirror>
+            <sm-code-mirror [originalCode]="originalCode" style="margin-top: 25px; box-shadow: 0px 0px 1px black"></sm-code-mirror>
         </div>
 
         <button (click)="saveProblem()">Save</button>

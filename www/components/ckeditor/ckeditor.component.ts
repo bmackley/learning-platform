@@ -40,13 +40,8 @@ export class CkeditorComponent implements OnChanges, OnDestroy, OnInit {
     }
 
     ngOnChanges() {
-        console.log('editor instance');
-        console.log(CKEDITOR.instances['sm-ckeditor-textarea']);
-        console.log('originalText');
-        console.log(this.originalText);
-
         setTimeout(() => {
-            CKEDITOR.instances['sm-ckeditor-textarea'] && this.originalText && CKEDITOR.instances['sm-ckeditor-textarea'].setData(this.originalText, () => console.log('data set'));
+            CKEDITOR.instances['sm-ckeditor-textarea'] && this.originalText && CKEDITOR.instances['sm-ckeditor-textarea'].setData(this.originalText);
         }, 250);
     }
 
