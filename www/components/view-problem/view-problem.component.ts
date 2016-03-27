@@ -16,9 +16,7 @@ import {FirebaseService} from '../../services/firebase.service.ts';
                 <div id="problemTextContainer"></div>
 
                 <div class="sm-flex-col">
-                    <div class="sm-flex-row">
-                        <input #defaultAnswerInput type="text" placeholder="type answer" class="sm-answer-input" [hidden]="!userInputs || userInputs.length > 0 || !userCheckboxes || userCheckboxes.length > 0 || !userRadios || userRadios.length > 0">
-                    </div>
+                    <input #defaultAnswerInput type="text" placeholder="type answer" class="sm-answer-input" [hidden]="!userInputs || userInputs.length > 0 || !userCheckboxes || userCheckboxes.length > 0 || !userRadios || userRadios.length > 0">
                     <button class="sm-check-answer-button sm-problem-button" (click)="checkAnswer(defaultAnswerInput.value)">Check</button>
                     <div class="sm-flex-row" style="margin-top: 25px;">
                         <button (click)="loadPrevProblem()" class="sm-problem-button">Prev</button>
