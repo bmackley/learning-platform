@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "description": "A simple ASL fingerspelling application, written in Angular 2",
   "scripts": {
-    "webpack": "webpack --progress --profile --colors --display-error-details --display-cached",
+    "webpack": "webpack -- watch --progress --profile --colors --display-error-details --display-cached",
     "single-page-server": "single-page-server -b=www -f=www/index.html",
     "start": "npm run webpack && npm run single-page-server"
   },
