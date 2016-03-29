@@ -1,7 +1,7 @@
 import {Component, OnInit} from 'angular2/core';
-import {Subject} from './subject';
+import {Subject} from './subject.ts';
 import {RouteParams} from 'angular2/router';
-import { SubjectService } from './subject.service';
+import { SubjectService } from '../../services/subject.service.ts';
 
 @Component({
   selector: 'my-subject-detail',
@@ -15,7 +15,6 @@ import { SubjectService } from './subject.service';
       <input [(ngModel)]="subject.name" placeholder="name"/>
     </div>
   </div>
-  <p>Hello</p>
   <button (click)="goBack()">Back</button>
   `,
   inputs: ['subject']

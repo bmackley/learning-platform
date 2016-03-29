@@ -1,0 +1,43 @@
+<h1>{{title}}</h1>
+<h2>My Subjects</h2>
+<div class="container">
+  <div class="section">
+    <ul class="subjects">
+      <li *ngFor="#subject of subjects">
+        <div class="row">
+          <div class="col s12 m6">
+            <div class="card grey lighten-4">
+              <div class="card-content light-blue-text text-darken-4">
+                <span class="badge">{{subject.id}}</span> {{subject.name}}
+                  <p>I am a very simple card. I am good at containing small bits of information. I am convenient because I require little markup to use effectively.</p>
+              </div>
+              <div class="card-action">
+                <a [class.selected]="subject === selectedSubject" (click)="onSelect(subject)">View {{subject.name}} Concepts</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col s12 m6">
+            <div class="card grey lighten-4">
+                <div class="card-content light-blue-text text-darken-4">
+                  <span class="badge">{{subject.id}}</span> {{subject.name}}
+                    <p>I am a very simple card. I am good at containing small bits of information.
+                      I am convenient because I require little markup to use effectively.</p>
+                </div>
+              <div class="card-action">
+                <a href="#">View {{subject.name}} Concepts</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div *ngIf="selectedSubject">
+  <h2>
+    View concepts for {{selectedSubject.name | uppercase}}
+  </h2>
+  <button (click)="gotoDetail()">View Concepts</button>
+</div>

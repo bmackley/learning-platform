@@ -1,0 +1,47 @@
+<h1>{{title}}</h1>
+<h2>My Concepts</h2>
+<ul class="subjects">
+  <li *ngFor="#concept of concepts"
+    [class.selected]="concept === selectedConcept"
+    (click)="onSelect(concept)">
+    <span class="badge">{{concept.id}}</span> {{concept.name}}
+  </li>
+</ul>
+<div *ngIf="selectedConcept">
+  <h2>
+    {{selectedConcept.name | uppercase}} Problems
+  </h2>
+  <div class="flex-row flex-center">
+        <div class="flex-col">
+            <div class="flex-row flex-center">
+                <h2>Practice Problem Examples</h2>
+            </div>
+            <iframe class="problem-frame" src="https://resplendent-fire-9351.firebaseapp.com/view-problem/lastmjs/1" frameborder="0"></iframe>
+            <iframe class="problem-frame" src="https://resplendent-fire-9351.firebaseapp.com/view-problem/lastmjs/2" frameborder="0"></iframe>
+            <iframe class="problem-frame" src="https://resplendent-fire-9351.firebaseapp.com/view-problem/lastmjs/4" frameborder="0"></iframe>
+            <iframe class="problem-frame" src="https://resplendent-fire-9351.firebaseapp.com/view-problem/lastmjs/3" frameborder="0"></iframe>
+       </div>
+        </div>
+
+        <style>
+            .problem-frame {
+                width: 50vw;
+                height: 30vh;
+                box-shadow: 0px 0px 5px grey;
+                margin-top: 25px;
+            }
+            .flex-row {
+                display: flex;
+                flex-direction: row;
+            }
+            .flex-col {
+                display: flex;
+                flex-direction: column;
+            }
+            .flex-center {
+                justify-content: center;
+                align-items: center;
+            }
+        </style>
+</div>
+<button (click)="gotoCreateConcepts()">New Concept</button>

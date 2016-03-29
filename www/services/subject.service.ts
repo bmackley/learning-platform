@@ -1,4 +1,4 @@
-import {Subjects} from './mock-subjects';
+import {Subjects} from './mock-subjects.ts';
 import {Injectable} from 'angular2/core';
 
 @Injectable()

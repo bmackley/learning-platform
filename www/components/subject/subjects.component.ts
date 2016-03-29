@@ -1,15 +1,15 @@
 import {Component, OnInit} from 'angular2/core';
-import {Subject} from './subject';
-import {SubjectDetailComponent} from './subject-detail.component';
-import {SubjectService} from './subject.service';
+import {Subject} from './subject.ts';
+import {SubjectDetailComponent} from './subject-detail.component.ts';
+import {SubjectService} from '../../services/subject.service.ts';
 import {Concept} from '../concept/concept';
 import {ConceptDetailComponent} from '../concept/concept-detail.component';
-import {ConceptService} from '../concept/concept.service'
+import {ConceptService} from '../../services/concept.service.ts'
 import {Router } from 'angular2/router';
 
 @Component({
   selector: 'my-subjects',
-  templateUrl: 'app/subject/subjects.component.html',
+  templateUrl: 'components/subject/subjects.component.html',
   directives: [SubjectDetailComponent]
 })
 export class SubjectsComponent implements OnInit {
@@ -17,7 +17,7 @@ export class SubjectsComponent implements OnInit {
   public subjects: Subject[];
   public selectedSubject: Subject;
   public concepts: Concept[];
-  constructor(private _router: Router, private _subjectService: SubjectService) { }
+  constructor(private _router: Router, public _subjectService: SubjectService) { }
   getSubjects() {
     this._subjectService.getSubjects().then(subjects => this.subjects = subjects);
   }

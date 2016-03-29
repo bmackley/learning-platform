@@ -1,7 +1,7 @@
 import {Component, OnInit} from 'angular2/core';
-import {Concept} from './concept';
+import {Concept} from './concept.ts';
 import {RouteParams} from 'angular2/router';
-import { ConceptService } from './concept.service';
+import { ConceptService } from '../../services/concept.service.ts';
 
 @Component({
   selector: 'my-concept-detail',

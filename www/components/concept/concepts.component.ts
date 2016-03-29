@@ -1,11 +1,11 @@
 import {Component, OnInit} from 'angular2/core';
-import {Concept} from './concept';
-import {ConceptDetailComponent} from './concept-detail.component';
-import {ConceptService} from './concept.service';
+import {Concept} from './concept.ts';
+import {ConceptDetailComponent} from './concept-detail.component.ts';
+import {ConceptService} from '../../services/concept.service.ts';
 import {Router } from 'angular2/router';
 @Component({
   selector: 'my-concepts',
-  templateUrl: 'app/concept/concepts.component.html',
+  templateUrl: 'components/concept/concepts.component.html',
   styles:[`
     .selected {
       background-color: #CFD8DC !important;

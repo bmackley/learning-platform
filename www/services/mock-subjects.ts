@@ -1,4 +1,4 @@
-import {Subject} from './subject';
+import {Subject} from '../components/subject/subject.ts';
 
 // var app = angular.module("sampleApp", ["firebase"]);
 export var Subjects: Subject[] = [

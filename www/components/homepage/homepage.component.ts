@@ -1,7 +1,11 @@
-import {Component, Inject} from 'angular2/core';
+import {Component, OnInit, Inject} from 'angular2/core';
 import {Constants} from '../../services/constants.service.ts';
 import {Actions} from '../../redux/actions.ts';
 import {FirebaseService} from '../../services/firebase.service.ts';
+
+import { Router, RouteParams } from 'angular2/router';
+import {Subject } from '../subject/subject'
+import { SubjectService } from '../../services/subject.service';
 
 @Component({
 	selector: 'sm-login',
@@ -10,26 +14,19 @@ import {FirebaseService} from '../../services/firebase.service.ts';
 
 export class HomepageComponent {
 
-    private store;
+	subjects: Subject[] = [];
+  private _routeParams: RouteParams;
+  constructor(private _router: Router) { }
+  gotoDetail(subject: Subject) {
+    let link = ['SubjectDetail', { id: subject.id }];
+    this._router.navigate(link);
+  }
+  gotoLogin(){
+    this._router.navigate(['Login']);
+  }
+  gotoSignUp(){
+    this._router.navigate(['Signup']);
+  }
 
-	constructor(@Inject(Constants.REDUX_STORE) store) {
-        this.store = store;
-	}
 
-    async logIn(email, password) {
-        try {
-            //TODO put this in an action of its own
-            const authData = await FirebaseService.logInUser(email, password);
-            Actions.setCurrentUser.execute(this.store, authData.uid, email);
-            alert('user logged in successfully, uid: ' + authData.uid);
-        }
-        catch(error) {
-            alert(error);
-        }
-    }
-
-    logOut() {
-        FirebaseService.logOutUser();
-        alert('user logged out successfully');
-    }
 }

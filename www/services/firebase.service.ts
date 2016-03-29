@@ -1,23 +1,23 @@
 const set = (path, data) => {
-    const ref = new Firebase(`https://resplendent-fire-9351.firebaseio.com/${path}`);
+    const ref = new Firebase(`"https://e3education.firebaseio.com/"/${path}`);
     ref.set(data);
 };
 
 const push = (path, data) => {
-    const ref = new Firebase(`https://resplendent-fire-9351.firebaseio.com/${path}`);
+    const ref = new Firebase(`"https://e3education.firebaseio.com/"/${path}`);
     const newId = ref.push(data).key();
 
     return newId;
 };
 
 const get = async (path) => {
-    const ref = new Firebase(`https://resplendent-fire-9351.firebaseio.com/${path}`);
+    const ref = new Firebase(`"https://e3education.firebaseio.com/"/${path}`);
     const dataSnapshot = await ref.once('value');
     return dataSnapshot.val();
 };
 
 const createUser = async (email, password) => {
-    const ref = new Firebase(`https://resplendent-fire-9351.firebaseio.com`);
+    const ref = new Firebase(`"https://e3education.firebaseio.com/"`);
 
     const userData = await ref.createUser({
         email,
@@ -28,7 +28,7 @@ const createUser = async (email, password) => {
 };
 
 const logInUser = async (email, password) => {
-    const ref = new Firebase(`https://resplendent-fire-9351.firebaseio.com`);
+    const ref = new Firebase(`"https://e3education.firebaseio.com/"`);
 
     const authData = await ref.authWithPassword({
         email,
@@ -39,12 +39,12 @@ const logInUser = async (email, password) => {
 };
 
 const logOutUser = () => {
-    const ref = new Firebase(`https://resplendent-fire-9351.firebaseio.com`);
+    const ref = new Firebase(`"https://e3education.firebaseio.com/"`);
     ref.unauth();
 };
 
 const isUserLoggedIn = () => {
-    const ref = new Firebase(`https://resplendent-fire-9351.firebaseio.com`);
+    const ref = new Firebase(`"https://e3education.firebaseio.com/"`);
     return ref.getAuth();
 };
 
