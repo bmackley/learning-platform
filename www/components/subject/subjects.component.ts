@@ -26,6 +26,10 @@ export class SubjectsComponent implements OnInit {
   }
   onSelect(subject: Subject) { this.selectedSubject = subject; }
   gotoDetail() {
-    this._router.navigate(['Concepts', { id: this.selectedSubject.id }]);
+    this._router.navigate(['Concepts']);
+  }
+  gotoConcepts() {
+    alert('going to concepts')
+    this._router.navigate(['Concepts']);
   }
 }

@@ -11,6 +11,18 @@ import {FirebaseService} from '../../services/firebase.service.ts';
         <input #passwordInput1 type="password" placeholder="password">
         <input #passwordInput2 type="password" placeholder="password">
         <button (click)="signUp(emailInput.value, passwordInput1.value, passwordInput2.value)">Sign Up</button>
+				<div id="modal1" class="modal bottom-sheet">
+				<div id="CreateUserSuccess" class="modal">
+			    <div class="modal-content">
+			      <h4>Modal Header</h4>
+			      <p>A bunch of text</p>
+			    </div>
+			    <div class="modal-footer">
+			      <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Login</a>
+						<a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+			    </div>
+			  </div>
+				<button data-target="modal1" class="btn modal-trigger">Modal</button>
     `
 })
 
