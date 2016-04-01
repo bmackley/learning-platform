@@ -1,12 +1,26 @@
 <h1>{{title}}</h1>
 <h2>My Concepts</h2>
-<ul class="subjects">
-  <li *ngFor="#concept of concepts"
-    [class.selected]="concept === selectedConcept"
-    (click)="onSelect(concept)">
-    <span class="badge">{{concept.id}}</span> {{concept.name}}
-  </li>
-</ul>
+<div class="container">
+  <div class="section">
+    <div class="row">
+      <ul class="subjects">
+        <li *ngFor="#concept of concepts" [class.selected]="concept === selectedConcept" (click)="onSelect(concept)">
+          <div class="col s12 m6 l4">
+            <div class="card grey lighten-4">
+              <span class="badge">{{concept.id}}</span> {{concept.name}}
+              <p>I am a very simple card. I am good at containing small bits of information. I am convenient because I require little markup to use effectively.</p>
+              <div class="card-action">
+                <a (click)="gotoQuestions()">View {{concept.name}} Questions</a>
+                <button (click)="gotoQuestions()" class="btn waves-effect waves-grey">{{concept.name}} Concepts</button>
+              </div>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
 <div *ngIf="selectedConcept">
   <h2>
     {{selectedConcept.name | uppercase}} Problems

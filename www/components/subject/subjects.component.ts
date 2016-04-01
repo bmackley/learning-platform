@@ -29,7 +29,6 @@ export class SubjectsComponent implements OnInit {
     this._router.navigate(['Concepts']);
   }
   gotoConcepts() {
-    alert('going to concepts')
     this._router.navigate(['Concepts']);
   }
 }

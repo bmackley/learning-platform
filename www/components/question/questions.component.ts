@@ -1,13 +1,14 @@
 import {Component, OnInit} from 'angular2/core';
 import {ConceptService} from '../../services/concept.service.ts';
 import {Router } from 'angular2/router';
+
 @Component({
   selector: 'my-concepts',
-  templateUrl: 'components/question/question.component.html',
+  templateUrl: 'components/question/questions.component.html',
 })
 export class QuestionsComponent implements OnInit {
   // public title = 'Tour of Subjectes';
-  constructor(private _router: Router, private _conceptService: ConceptService) { }
+  constructor(private _router: Router) { }
   getQuestions() {
     //blank for the moment
     //this._conceptService.getConcepts().then(concepts => this.concepts = concepts);

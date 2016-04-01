@@ -11,6 +11,7 @@ import { SubjectsComponent } from '../subject/subjects.component.ts';
 import { ConceptsComponent } from '../concept/concepts.component.ts';
 import { ConceptService } from '../../services/concept.service.ts';
 import { SubjectDetailComponent} from '../subject/subject-detail.component.ts';
+import { QuestionsComponent } from '../question/questions.component.ts'
 
 
 
@@ -41,6 +42,11 @@ import { SubjectDetailComponent} from '../subject/subject-detail.component.ts';
 	    path: '/concepts',
 	    name: 'Concepts',
 	    component: ConceptsComponent
+	  },
+		{
+	    path: '/questions',
+	    name: 'Questions',
+	    component: QuestionsComponent
 	  },
 ])
 
