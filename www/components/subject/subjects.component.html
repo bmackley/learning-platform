@@ -8,12 +8,12 @@
               <div class="col s12 m6 l4">
                 <div class="card">
                 <div class="card-image">
-                <img src="{{subject.pictureFilePath}}">
-                    <span class="badge">{{subject.id}}</span> {{subject.name}}
+                <img src="{{subject.pictureFilePath}}" height="235" width="100">
+                    <span class="card-title">{{subject.name}}</span>
                   </div>
                   <div class="card-action">
-                    <a (click)="gotoConcepts()">View {{subject.name}} Concepts</a>
-                    <button (click)="gotoConcepts()" class="btn waves-effect waves-grey">{{subject.name}} Concepts</button>
+
+                    <button (click)="gotoConcepts()" class="btn waves-effect waves-grey" style="align:center;">{{subject.name}} Concepts</button>
                   </div>
                 </div>
               </div>
