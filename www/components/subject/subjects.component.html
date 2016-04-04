@@ -6,10 +6,10 @@
           <ul class="subjects">
             <li *ngFor="#subject of subjects">
               <div class="col s12 m6 l4">
-                <div class="card grey lighten-4">
-                  <div class="card-content light-blue-text text-darken-4">
+                <div class="card">
+                <div class="card-image">
+                <img src="{{subject.pictureFilePath}}">
                     <span class="badge">{{subject.id}}</span> {{subject.name}}
-                    <img src="{{subject.pictureFilePath}}"/>
                   </div>
                   <div class="card-action">
                     <a (click)="gotoConcepts()">View {{subject.name}} Concepts</a>

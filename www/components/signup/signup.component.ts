@@ -6,9 +6,15 @@ import {FirebaseService} from '../../services/firebase.service.ts';
 @Component({
 	selector: 'sm-signup',
 	template: `
-        <div>Sign Up</div>
-        <input #emailInput type="email" placeholder="email">
-        <input #passwordInput1 type="password" placeholder="password">
+	<center>
+	<div class="row">
+			<div class="col s12 m6 l4">
+					<div class="card grey lighten-4" align="center">
+						<div class="card-content light-blue-text text-darken-4">
+							<span class="card-title" align="center">Sign Up</span>
+
+        	<input #emailInput type="email" placeholder="email">
+        	<input #passwordInput1 type="password" placeholder="password">
         <input #passwordInput2 type="password" placeholder="password">
         <button (click)="signUp(emailInput.value, passwordInput1.value, passwordInput2.value)">Sign Up</button>
 				<div id="modal1" class="modal bottom-sheet">
@@ -23,6 +29,11 @@ import {FirebaseService} from '../../services/firebase.service.ts';
 			    </div>
 			  </div>
 				<button data-target="modal1" class="btn modal-trigger">Modal</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
     `
 })
 
