@@ -9,7 +9,7 @@
                 <div class="card grey lighten-4">
                   <div class="card-content light-blue-text text-darken-4">
                     <span class="badge">{{subject.id}}</span> {{subject.name}}
-                      <p>I am a very simple card. I am good at containing small bits of information. I am convenient because I require little markup to use effectively.</p>
+                    <img src="{{subject.pictureFilePath}}"/>
                   </div>
                   <div class="card-action">
                     <a (click)="gotoConcepts()">View {{subject.name}} Concepts</a>

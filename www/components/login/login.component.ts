@@ -5,13 +5,7 @@ import {FirebaseService} from '../../services/firebase.service.ts';
 
 @Component({
 	selector: 'sm-login',
-	template: `
-        <div>Log In</div>
-        <input #emailInput type="email" placeholder="email">
-        <input #passwordInput type="password" placeholder="password">
-        <button (click)="logIn(emailInput.value, passwordInput.value)">Log In</button>
-        <button (click)="logOut()">Log Out</button>
-    `
+	templateUrl: './login.component.html' 
 })
 
 export class LoginComponent {
