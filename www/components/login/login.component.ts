@@ -6,8 +6,10 @@ import {FirebaseService} from '../../services/firebase.service.ts';
 @Component({
 	selector: 'sm-login',
 	template: `
-	<div class="row">
-			<div class="col s12 m6 l4">
+	<div class="section">
+	  <div class="container">
+			<div class="row center">
+				<div class="col s12 m6 l4">
 					<div class="card grey lighten-4" align="center">
 						<div class="card-content light-blue-text text-darken-4">
 							<span class="card-title">Log In</span>
@@ -19,6 +21,8 @@ import {FirebaseService} from '../../services/firebase.service.ts';
 					</div>
 				</div>
 			</div>
+		</div>
+	</div>
 `
 })
 
