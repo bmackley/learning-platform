@@ -6,17 +6,25 @@ import {FirebaseService} from '../../services/firebase.service.ts';
 @Component({
 	selector: 'sm-login',
 	template: `
+
 	<div class="section">
 	  <div class="container">
 			<div class="row">
-				<div class="col s12 m6 l4">
+				<div class="col s12 m6 offset-l4 l4">
 					<div class="card grey lighten-4" align="center">
-						<div class="card-content light-blue-text text-darken-4">
+						<div class="card-content black-text">
 							<span class="card-title">Log In</span>
-							<input #emailInput type="email" placeholder="email">
-							<input #passwordInput type="password" placeholder="password">
-							<button (click)="logIn(emailInput.value, passwordInput.value)">Log In</button>
-							<button (click)="logOut()">Log Out</button>
+							<form>
+							<div class="input-field col s12">
+			          <input id="email" #emailInput type="text" class="validate">
+			          <label for="email">Email</label>
+			        </div>
+							<div class="input-field col s12 m12 l12">
+			          <input id="password" #passwordInput type="password" class="validate">
+			          <label for="password">Password</label>
+			        </div>
+							<a (click)="logIn(emailInput.value, passwordInput.value)" class="waves-effect waves-light btn">Log In</a>
+							</form>
 						</div>
 					</div>
 				</div>
