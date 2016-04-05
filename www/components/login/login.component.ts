@@ -13,8 +13,8 @@ import {FirebaseService} from '../../services/firebase.service.ts';
 							<span class="card-title">Log In</span>
 							<input #emailInput type="email" placeholder="email">
 							<input #passwordInput type="password" placeholder="password">
-							<button class="waves-effect waves-light btn (click)="logIn(emailInput.value, passwordInput.value)">Log In</button>
-							<button class="waves-effect waves-light btn (click)="logOut()">Log Out</button>
+							<button (click)="logIn(emailInput.value, passwordInput.value)">Log In</button>
+							<button (click)="logOut()">Log Out</button>
 						</div>
 					</div>
 				</div>

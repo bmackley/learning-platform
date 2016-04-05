@@ -7,11 +7,11 @@
         <li *ngFor="#concept of concepts" [class.selected]="concept === selectedConcept" (click)="onSelect(concept)">
           <div class="col s12 m6 l4">
             <div class="card grey lighten-4">
-              <span class="badge">{{concept.id}}</span> {{concept.name}}
-              <p>I am a very simple card. I am good at containing small bits of information. I am convenient because I require little markup to use effectively.</p>
+              <span class="card-title blue-text text-darken-4">{{concept.name}}</span>
+              <p class="blue-text text-darken-4">{{concept.description}}</p>
               <div class="card-action">
-                <a (click)="gotoQuestions()">View {{concept.name}} Questions</a>
-                <button (click)="gotoQuestions()" class="btn waves-effect waves-grey">{{concept.name}} Concepts</button>
+            <!--    <a (click)="gotoQuestions()">View {{concept.name}} Questions</a> -->
+              <button (click)="gotoQuestions()" class="btn waves-effect waves-grey">View {{concept.name}}</button>
               </div>
             </div>
           </div>
