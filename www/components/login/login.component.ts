@@ -12,7 +12,7 @@ import {FirebaseService} from '../../services/firebase.service.ts';
 			<div class="row">
 				<div class="col s12 m6 offset-l4 l4">
 					<div class="card grey lighten-4" align="center">
-						<div class="card-content black-text">
+						<div class="card-content light-blue-text text-darken-4">
 							<span class="card-title">Log In</span>
 							<form>
 							<div class="input-field col s12">

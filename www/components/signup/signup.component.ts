@@ -9,15 +9,27 @@ import {FirebaseService} from '../../services/firebase.service.ts';
 	<div class="container">
 	  <div class="section">
 			<div class="row center">
-				<div class="col s12 m6 l4">
+				<div class="col s12 offset-m3 m6 offset-l4 l4">
 					<div class="card grey lighten-4" align="center">
 						<div class="card-content light-blue-text text-darken-4">
 							<span class="card-title" align="center">Sign Up</span>
+							<form>
+							<div class="input-field col s12">
+			          <input id="email" #emailInput type="text" class="validate">
+			          <label for="email">Email</label>
+			        </div>
+							<div class="input-field col s12">
+			          	<input id="passwordInput1" #passwordInput1 type="password" class="validate">
+			          <label for="passwordInput1">Password</label>
+			        </div>
+							<div class="input-field col s12">
+			          	<input id="passwordInput2" #passwordInput2 type="password" class="validate">
+			          <label for="passwordInput2">Retype Password</label>
+			        </div>
 
-        	<input #emailInput type="email" placeholder="email">
-        	<input #passwordInput1 type="password" placeholder="password">
-        <input #passwordInput2 type="password" placeholder="password">
-        <button (click)="signUp(emailInput.value, passwordInput1.value, passwordInput2.value)">Sign Up</button>
+
+				<a (click)="signUp(emailInput.value, passwordInput1.value, passwordInput2.value)" class="waves-effect waves-light btn">Log In</a>
+				</form>
 				<div id="modal1" class="modal bottom-sheet">
 				<div id="CreateUserSuccess" class="modal">
 			    <div class="modal-content">
