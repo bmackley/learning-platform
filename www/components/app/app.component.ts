@@ -13,6 +13,9 @@ import { ConceptService } from '../../services/concept.service.ts';
 import { SubjectDetailComponent} from '../subject/subject-detail.component.ts';
 import { QuestionsComponent } from '../question/questions.component.ts'
 
+import {Constants} from '../../services/constants.service.ts';
+import {Actions} from '../../redux/actions.ts';
+import {FirebaseService} from '../../services/firebase.service.ts';
 
 
 @Component({
@@ -51,7 +54,9 @@ import { QuestionsComponent } from '../question/questions.component.ts'
 ])
 
 export class AppComponent {
+
 	constructor(){
 
 	}
+
 }
