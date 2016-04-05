@@ -8,7 +8,7 @@ import {FirebaseService} from '../../services/firebase.service.ts';
 	template: `
 	<div class="section">
 	  <div class="container">
-			<div class="row center">
+			<div class="row">
 				<div class="col s12 m6 l4">
 					<div class="card grey lighten-4" align="center">
 						<div class="card-content light-blue-text text-darken-4">
