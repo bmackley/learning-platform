@@ -16,5 +16,5 @@ export const InitialState = {
     currentUser: {
         uid: '',
         email: ''
-    }
+    },
 };

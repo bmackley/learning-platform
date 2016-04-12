@@ -2,6 +2,7 @@ import {Component, Inject} from 'angular2/core';
 import {Constants} from '../../services/constants.service.ts';
 import {Actions} from '../../redux/actions.ts';
 import {FirebaseService} from '../../services/firebase.service.ts';
+import {Router } from 'angular2/router';
 
 @Component({
 	selector: 'sm-login',
@@ -38,7 +39,7 @@ export class LoginComponent {
 
     private store;
 
-	constructor(@Inject(Constants.REDUX_STORE) store) {
+	constructor(private _router: Router, @Inject(Constants.REDUX_STORE) store) {
         this.store = store;
 	}
 
@@ -47,6 +48,7 @@ export class LoginComponent {
             //TODO put this in an action of its own
             const authData = await FirebaseService.logInUser(email, password);
             Actions.setCurrentUser.execute(this.store, authData.uid, email);
+						this._router.navigate(['Subjects'])
         }
         catch(error) {
             alert(error);

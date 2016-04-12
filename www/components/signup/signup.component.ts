@@ -2,6 +2,7 @@ import {Component, Inject} from 'angular2/core';
 import {Constants} from '../../services/constants.service.ts';
 import {Actions} from '../../redux/actions.ts';
 import {FirebaseService} from '../../services/firebase.service.ts';
+import {Router } from 'angular2/router';
 
 @Component({
 	selector: 'sm-signup',
@@ -52,7 +53,7 @@ import {FirebaseService} from '../../services/firebase.service.ts';
 
 export class SignupComponent {
 
-	constructor(@Inject(Constants.REDUX_STORE) store) {
+	constructor(private _router: Router, @Inject(Constants.REDUX_STORE) store) {
 
 	}
 
@@ -76,7 +77,8 @@ export class SignupComponent {
 
         try {
             const userData = await FirebaseService.createUser(email, password1);
-            alert('user created successfully, uid: ' + userData.uid);
+            alert('account created successfully!');
+						this._router.navigate(['Subjects'])
         }
         catch(error) {
             alert(error);
