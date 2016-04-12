@@ -12,6 +12,7 @@ import { ConceptsComponent } from '../concept/concepts.component.ts';
 import { ConceptService } from '../../services/concept.service.ts';
 import { SubjectDetailComponent} from '../subject/subject-detail.component.ts';
 import { QuestionsComponent } from '../question/questions.component.ts'
+import { NavbarComponent } from '../navbar/navbar.component.ts'
 
 import {Constants} from '../../services/constants.service.ts';
 import {Actions} from '../../redux/actions.ts';
@@ -21,7 +22,7 @@ import {FirebaseService} from '../../services/firebase.service.ts';
 @Component({
 	selector: 'app',
 	templateUrl: 'components/app/app.html',
-	directives: [ROUTER_DIRECTIVES],
+	directives: [ROUTER_DIRECTIVES, NavbarComponent],
 	providers: [
     ROUTER_PROVIDERS,
     SubjectService,
@@ -31,7 +32,7 @@ import {FirebaseService} from '../../services/firebase.service.ts';
 
 @RouteConfig([
     { name: 'ViewProblem', path: '/view-problem/:problem-id', component: ViewProblemComponent },
-	{ name: 'EditExistingProblem', path: '/edit-problem/:problem-id', component: EditProblemComponent },
+		{ name: 'EditExistingProblem', path: '/edit-problem/:problem-id', component: EditProblemComponent },
     { name: 'EditNewProblem', path: '/edit-problem', component: EditProblemComponent },
     { name: 'Signup', path: '/signup', component: SignupComponent },
     { name: 'Login', path: '/login', component: LoginComponent },
@@ -54,9 +55,17 @@ import {FirebaseService} from '../../services/firebase.service.ts';
 ])
 
 export class AppComponent {
-
-	constructor(){
-
+	private unsubscribe;
+	private loggedIn = false;
+	public username;
+	constructor(@Inject(Constants.REDUX_STORE) store){
+		this.unsubscribe = store.subscribe(this.mapStateToThis(store));
+		this.loggedIn = false;
 	}
-
+	mapStateToThis(store) {
+			return () => {
+					const state = store.getState();
+					this.username = state.currentUser.email;
+			};
+	}
 }

@@ -4,8 +4,9 @@
   <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
   <ul class="right hide-on-med-and-down">
   <li><a [routerLink]="['Subjects']">Subjects</a></li>
-  <li><a [routerLink]="['Login']">Login</a></li>
-  <li><a [routerLink]="['Signup']">Sign Up</a></li>
+  <li *ngIf ="!username" ><a [routerLink]="['Login']">Login</a></li>
+  <li *ngIf ="!username" ><a [routerLink]="['Signup']">Sign Up</a></li>
+  <li *ngIf ="username" >Logged in as {{username}}</li>
   </ul>
   <ul class="side-nav" id="mobile-demo">
   <li><a [routerLink]="['Subjects']">Subjects</a></li>
@@ -14,5 +15,4 @@
   </ul>
 </div>
 </nav>
-
 <router-outlet></router-outlet>

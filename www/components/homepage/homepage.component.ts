@@ -8,7 +8,7 @@ import {Subject } from '../subject/subject'
 import { SubjectService } from '../../services/subject.service';
 
 @Component({
-	selector: 'sm-login',
+	selector: 'homepage',
 	templateUrl: 'components/homepage/homepage.component.html'
 })
 

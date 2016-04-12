@@ -1,0 +1,16 @@
+<nav class="light-blue darken-4">
+<div class="nav-wrapper">
+  <a [routerLink]="['Homepage']" class="brand-logo">E3 Education</a>
+  <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+  <ul class="right hide-on-med-and-down">
+  <li><a [routerLink]="['Subjects']">Subjects</a></li>
+  <li><a onClick="helloWorld" [routerLink]="['Login']">Login</a></li>
+  <li><a [routerLink]="['Signup']">Sign Up</a></li>
+  </ul>
+  <ul class="side-nav" id="mobile-demo">
+  <li><a [routerLink]="['Subjects']">Subjects</a></li>
+  <li><a [routerLink]="['Login']">Login</a></li>
+  <li><a [routerLink]="['Signup']">Sign Up</a></li>
+  </ul>
+</div>
+</nav>

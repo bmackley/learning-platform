@@ -47,7 +47,6 @@ export class LoginComponent {
             //TODO put this in an action of its own
             const authData = await FirebaseService.logInUser(email, password);
             Actions.setCurrentUser.execute(this.store, authData.uid, email);
-            alert('user logged in successfully, uid: ' + authData.uid);
         }
         catch(error) {
             alert(error);

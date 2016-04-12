@@ -3,7 +3,7 @@ import {ConceptService} from '../../services/concept.service.ts';
 import {Router } from 'angular2/router';
 
 @Component({
-  selector: 'my-concepts',
+  selector: 'my-questions',
   templateUrl: 'components/question/questions.component.html',
 })
 export class QuestionsComponent implements OnInit {
